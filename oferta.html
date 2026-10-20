@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<!-- WYGENEROWANE przez scripts/build.mjs z "Oferta.dc.html" — nie edytuj ręcznie. -->
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oferta i ceny — Future Frisbee</title>
+<meta name="description" content="Ceny i opis zajęć: indywidualne (150 zł, pakiet 6 spotkań 750 zł), grupowe (600 zł / 6 spotkań), programy treningowe dla zawodników, warsztaty, seminaria i pokazy.">
+<meta name="theme-color" content="#0c1611">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:title" content="Oferta i ceny — Future Frisbee">
+<meta property="og:description" content="Ceny i opis zajęć: indywidualne (150 zł, pakiet 6 spotkań 750 zł), grupowe (600 zł / 6 spotkań), programy treningowe dla zawodników, warsztaty, seminaria i pokazy.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%2214%22%20fill%3D%22%231c4732%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23f1ede4%22%20stroke-width%3D%222%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%228%22%20fill%3D%22none%22%20stroke%3D%22%23f1ede4%22%20stroke-width%3D%221%22%20opacity%3D%22.45%22%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="photos/img_5957.webp" imagesrcset="photos/img_5957-720.webp 720w, photos/img_5957.webp 1206w" imagesizes="(max-width: 859px) 100vw, 34vw" fetchpriority="high">
+<script>document.documentElement.className='js'</script>
+<style>
+/* Wspólne style wszystkich stron Future Frisbee.
+   Kolory marki w jednym miejscu — zmiana tutaj zmienia całą stronę. */
+
+:root {
+  --bg: #0c1611;          /* leśna noc — tło */
+  --surface: #112019;     /* karty, pola formularza */
+  --surface-2: #16291f;
+  --green: #1c4732;       /* zieleń marki — duże bloki */
+  --green-line: rgba(241, 237, 228, .22);
+  --ink: #f1ede4;         /* tekst */
+  --muted: #b1bab2;
+  --dim: #86938b;
+  --line: rgba(241, 237, 228, .13);
+  --accent: #e8402c;      /* czerwień dysku — tylko przyciski i akcenty */
+
+  --r: 18px;
+  --r-sm: 12px;
+  --pill: 999px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --maxw: 1240px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+html[data-shape="ostry"] { --r: 2px; --r-sm: 2px; --pill: 4px; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: 'Archivo', system-ui, sans-serif; font-size: 17px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--accent); color: #fff; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Typografia ---------- */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+.display { font-stretch: 125%; font-weight: 800; letter-spacing: -.03em; line-height: .95; margin: 0; text-wrap: balance; }
+.h1 { font-size: clamp(46px, 7.2vw, 104px); }
+.h2 { font-size: clamp(34px, 4.6vw, 64px); line-height: 1; }
+.h3 { font-size: clamp(23px, 2.3vw, 30px); line-height: 1.05; letter-spacing: -.02em; }
+.lead { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.65; color: var(--muted); text-wrap: pretty; max-width: 34em; margin: 0; }
+.lead a, .prose a { color: var(--ink); border-bottom: 1px solid var(--accent); }
+.prose p { margin: 0 0 1.1em; color: var(--muted); max-width: 36em; text-wrap: pretty; }
+.prose p:last-child { margin-bottom: 0; }
+
+/* ---------- Przyciski ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 0 28px; border-radius: var(--pill); border: 0;
+  font: inherit; font-weight: 700; font-size: 16px; letter-spacing: .01em; white-space: nowrap; cursor: pointer;
+  transition: background-color .25s, border-color .25s, color .25s, transform .25s, filter .25s;
+}
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 14px 34px -14px color-mix(in srgb, var(--accent) 70%, transparent); }
+.btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn-ghost { border: 1px solid rgba(241, 237, 228, .3); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-dark { background: var(--bg); color: var(--ink); }
+.btn-dark:hover { background: #050a07; transform: translateY(-1px); }
+.text-link { display: inline-block; font-weight: 700; border-bottom: 2px solid var(--accent); padding-bottom: 3px; transition: color .2s; }
+.text-link:hover { color: #fff; }
+
+/* ---------- Ikony ---------- */
+.ico { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.ico .dot { fill: currentColor; stroke: none; }
+
+/* ---------- Nawigacja ---------- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 80;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px var(--gutter);
+  background: linear-gradient(rgba(12, 22, 17, .92), rgba(12, 22, 17, .62) 70%, rgba(12, 22, 17, 0));
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.brand { display: inline-flex; align-items: center; gap: 10px; font-stretch: 125%; font-weight: 800; font-size: 19px; letter-spacing: -.01em; white-space: nowrap; }
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 50%; flex: none; background: var(--green);
+  box-shadow: inset 0 0 0 2px var(--ink), inset 0 0 0 7px var(--green), inset 0 0 0 8px rgba(241, 237, 228, .4);
+}
+.nav-links { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); font-size: 15px; font-weight: 600; }
+.nav-links a:not(.btn) { color: var(--muted); transition: color .2s; }
+.nav-links a:not(.btn):hover, .nav-links a[aria-current] { color: var(--ink); }
+.nav .btn { min-height: 42px; padding: 0 20px; font-size: 15px; }
+
+/* ---------- Sekcje ---------- */
+.section { padding: clamp(80px, 11vw, 140px) 0; }
+.section-alt { background: var(--surface); border-top: 1px solid rgba(241, 237, 228, .06); border-bottom: 1px solid rgba(241, 237, 228, .06); }
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px 48px; flex-wrap: wrap; margin-bottom: clamp(36px, 5vw, 60px); }
+.section-head .lead { max-width: 25em; }
+
+/* ---------- Hero (strona główna) ---------- */
+.hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; grid-template-columns: 1.05fr 1fr; }
+.hero-copy {
+  position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center;
+  margin-right: -2px; background: var(--bg); /* zakrywa szczelinę na styku ze zdjęciem */
+  padding: clamp(100px, 14vh, 140px) clamp(20px, 4vw, 56px) clamp(40px, 7vh, 72px) var(--gutter);
+}
+.hero-copy .lead { margin-top: 24px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.hero-media { position: relative; overflow: hidden; }
+.hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 30%; }
+.hero-media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--bg) 0%, rgba(12, 22, 17, .25) 30%, rgba(12, 22, 17, 0) 60%),
+              linear-gradient(rgba(12, 22, 17, .35), rgba(12, 22, 17, 0) 30%, rgba(12, 22, 17, 0) 70%, var(--bg));
+}
+
+/* Lista kontaktów (hero, formularz) */
+.contact-list { list-style: none; margin: 40px 0 0; padding: 0; max-width: 30rem; border-top: 1px solid var(--line); }
+.contact-list a { display: grid; grid-template-columns: 22px 84px 1fr; align-items: center; gap: 12px; padding: 13px 2px; border-bottom: 1px solid var(--line); }
+.contact-list .ico { color: var(--accent); }
+.contact-list .cl-label { color: var(--dim); font-size: 14px; }
+.contact-list .cl-value { font-weight: 600; font-size: 16px; overflow-wrap: anywhere; transition: color .2s; }
+.contact-list a:hover .cl-value { color: var(--accent); }
+
+/* Pasek z hasłami */
+.band-wrap { position: relative; z-index: 5; overflow: hidden; margin-top: -26px; padding: 16px 0; } /* przycina obrócony pasek po bokach */
+.band { overflow: hidden; padding: 13px 0; margin: 0 -20px; background: var(--green); transform: rotate(-1.2deg); box-shadow: 0 12px 30px rgba(0, 0, 0, .25); }
+.band-track {
+  display: flex; gap: 40px; width: max-content; white-space: nowrap; animation: ffMarquee 30s linear infinite;
+  font-stretch: 125%; font-weight: 800; font-size: clamp(16px, 2vw, 20px); letter-spacing: .03em; text-transform: uppercase;
+}
+.band-track .sep { color: var(--accent); }
+
+/* ---------- O mnie (skrót na stronie głównej) ---------- */
+.about { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(36px, 6vw, 88px); align-items: center; }
+.about-photo { position: relative; }
+.about-photo img { width: 100%; border-radius: var(--r); box-shadow: 0 40px 80px -24px rgba(0, 0, 0, .7); }
+.photo-tag {
+  position: absolute; right: -8px; bottom: -14px; padding: 12px 18px; border-radius: var(--r-sm);
+  background: var(--green); color: var(--ink); font-stretch: 125%; font-weight: 800; font-size: 15px;
+  transform: rotate(3deg); box-shadow: 0 12px 30px rgba(0, 0, 0, .35);
+}
+.about .prose { margin-top: 26px; }
+.note {
+  margin: 28px 0 0; padding: 16px 22px; max-width: 34em;
+  border-left: 3px solid var(--accent); border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  background: var(--surface-2); color: var(--ink); font-weight: 500;
+}
+.about .text-link { margin-top: 30px; }
+
+/* ---------- Oferta: kafelki ze zdjęciami ---------- */
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.tile { position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--r); background: var(--surface-2); isolation: isolate; }
+.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 20% 50%; transition: transform 1s var(--ease); }
+.tile::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10, 20, 15, 0) 25%, rgba(10, 20, 15, .6) 55%, rgba(10, 20, 15, .96) 100%); }
+.tile-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(20px, 2.4vw, 30px); }
+.tile-body p { margin: 10px 0 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.tile-body .text-link { margin-top: 16px; font-size: 15px; }
+.tile:hover img { transform: scale(1.05); }
+
+/* Warsztaty — wyróżniony, szeroki blok w kolorze marki */
+.feature { display: grid; grid-template-columns: 1fr 1.25fr; margin-top: 18px; border-radius: var(--r); overflow: hidden; background: var(--green); }
+.feature-copy { padding: clamp(28px, 4vw, 56px); display: flex; flex-direction: column; justify-content: center; }
+.feature-copy .lead { margin-top: 16px; color: rgba(241, 237, 228, .8); }
+.feature-list { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.feature-list li { padding: 7px 14px; border: 1px solid var(--green-line); border-radius: var(--pill); font-size: 15px; font-weight: 600; }
+.feature-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.feature-actions .btn-ghost { border-color: var(--green-line); }
+.feature-media { position: relative; min-height: 340px; overflow: hidden; }
+.feature-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 45% 70%; transform: scale(1.25); transform-origin: 25% 90%; } /* kadr ucina znaczek „1/4” ze zrzutu z Instagrama */
+
+/* ---------- Opinie ---------- */
+.quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 56px); }
+.quote { margin: 0; padding-top: 26px; border-top: 1px solid var(--line); display: flex; flex-direction: column; }
+.quote::before { content: ""; width: 36px; height: 3px; margin-top: -27px; margin-bottom: 24px; background: var(--accent); }
+.quote blockquote { margin: 0; font-size: 18px; line-height: 1.65; color: var(--ink); text-wrap: pretty; }
+.quote figcaption { margin-top: 20px; font-size: 15px; color: var(--dim); }
+.quote figcaption strong { color: var(--muted); font-weight: 600; }
+
+/* ---------- Kontakt (strona główna) ---------- */
+.contact { background: var(--green); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(40px, 6vw, 96px); align-items: end; }
+.contact .lead { margin-top: 22px; color: rgba(241, 237, 228, .8); }
+.contact .btn { margin-top: 32px; }
+.contact-big { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--green-line); }
+.contact-big a { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 20px; flex-wrap: wrap; padding: 22px 0; border-bottom: 1px solid var(--green-line); }
+.contact-big .v { font-weight: 700; font-size: clamp(21px, 2.4vw, 32px); letter-spacing: -.01em; overflow-wrap: anywhere; text-decoration: underline 2px transparent; text-underline-offset: 6px; transition: text-decoration-color .2s; }
+.contact-big .l { color: rgba(241, 237, 228, .65); font-size: 15px; white-space: nowrap; }
+.contact-big a:hover .v { text-decoration-color: var(--accent); }
+
+/* ---------- Finał: przewijające się zdjęcia ---------- */
+.finale { position: relative; display: grid; place-items: center; height: clamp(560px, 90vh, 900px); overflow: hidden; background: var(--bg); }
+.wall { position: absolute; inset: -6% -4%; display: flex; flex-direction: column; justify-content: center; gap: 14px; transform: rotate(-4deg); }
+.wall-row { display: flex; gap: 14px; width: max-content; animation: ffMarquee3 90s linear infinite; }
+.wall-row.rev { animation-direction: reverse; animation-duration: 110s; }
+.wall-row img { flex: none; width: auto; height: clamp(180px, 27vh, 290px); aspect-ratio: 4 / 5; object-fit: cover; object-position: 20% 50%; border-radius: var(--r-sm); }
+.finale::before {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: radial-gradient(ellipse 60% 55% at center, rgba(12, 22, 17, .86) 0%, rgba(12, 22, 17, .6) 55%, rgba(12, 22, 17, .4) 100%),
+              linear-gradient(var(--bg), rgba(12, 22, 17, 0) 16%, rgba(12, 22, 17, 0) 84%, var(--bg));
+}
+.finale-text { position: relative; z-index: 2; text-align: center; padding: 0 var(--gutter); }
+.finale-text .display { font-size: clamp(40px, 7vw, 100px); text-shadow: 0 6px 40px rgba(0, 0, 0, .5); }
+
+/* ---------- Stopka ---------- */
+.footer { padding: 40px 0 36px; border-top: 1px solid var(--line); font-size: 15px; color: var(--dim); }
+.footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px 40px; }
+.footer .brand { color: var(--ink); font-size: 17px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+.footer-links a { transition: color .2s; }
+.footer-links a:hover { color: var(--ink); }
+
+/* ---------- Podstrony: nagłówek ---------- */
+.page-head { padding: clamp(130px, 18vh, 190px) 0 clamp(40px, 6vw, 72px); }
+.page-head .lead { margin-top: 26px; }
+.jump { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+.jump a { padding: 10px 18px; border: 1px solid var(--line); border-radius: var(--pill); font-size: 15px; font-weight: 600; color: var(--muted); transition: border-color .2s, color .2s; }
+.jump a:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ---------- Oferta: usługa ---------- */
+.service { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.4fr); gap: clamp(28px, 5vw, 80px); align-items: start; padding: clamp(48px, 7vw, 96px) 0; border-top: 1px solid var(--line); }
+.service-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 20% 50%; border-radius: var(--r); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { padding: 6px 13px; border-radius: var(--pill); background: var(--green); font-size: 14px; font-weight: 600; }
+.prices { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.price { flex: 1 1 190px; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); }
+.price-amount { font-stretch: 125%; font-weight: 800; font-size: clamp(26px, 2.6vw, 34px); letter-spacing: -.02em; line-height: 1; white-space: nowrap; }
+.price-amount small { font-size: .5em; font-weight: 700; letter-spacing: 0; color: var(--muted); }
+.price-label { margin-top: 8px; font-size: 15px; line-height: 1.45; color: var(--muted); }
+.price-label strong { color: var(--ink); font-weight: 600; }
+.service-cta { margin-top: 24px; }
+.sub { margin: 36px 0 10px; font-size: 16px; font-weight: 700; }
+.topics { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; max-width: 38em; }
+.topics li { position: relative; padding-left: 20px; color: var(--muted); }
+.topics li::before { content: ""; position: absolute; left: 0; top: .62em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.topics strong { color: var(--ink); font-weight: 600; }
+
+/* Warsztaty na podstronie oferty */
+.workshops { margin: clamp(24px, 4vw, 48px) 0; padding: clamp(32px, 5vw, 72px); border-radius: var(--r); background: var(--green); }
+.workshops .lead { margin-top: 20px; color: rgba(241, 237, 228, .82); }
+.formats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 36px; }
+.format { padding: 22px; border: 1px solid var(--green-line); border-radius: var(--r-sm); }
+.format h3 { margin: 0; font-size: 19px; font-weight: 700; }
+.format p { margin: 8px 0 0; font-size: 15px; line-height: 1.55; color: rgba(241, 237, 228, .78); }
+.workshops-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; margin-top: 32px; }
+.workshops-foot p { margin: 0; color: rgba(241, 237, 228, .82); }
+
+/* ---------- Formularz zapisu ---------- */
+.signup { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(36px, 6vw, 96px); align-items: start; }
+.signup .lead { margin-top: 22px; }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 16px; padding: clamp(22px, 3vw, 36px); border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+.field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: 15px; font-weight: 600; color: var(--muted); }
+.field input, .field select, .field textarea {
+  width: 100%; min-height: 52px; padding: 13px 16px; border: 1px solid rgba(241, 237, 228, .18); border-radius: var(--r-sm);
+  background: var(--bg); color: var(--ink); font: inherit; font-size: 16px; transition: border-color .2s, box-shadow .2s;
+}
+.field textarea { min-height: 140px; resize: vertical; line-height: 1.5; }
+.field select {
+  appearance: none; -webkit-appearance: none; padding-right: 44px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b1bab2' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; background-size: 18px;
+}
+.field ::placeholder { color: #6b776f; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+.form-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 4px; }
+.form-note { margin: 0; flex: 1 1 220px; font-size: 14px; line-height: 1.5; color: var(--dim); }
+.form-status { grid-column: 1 / -1; margin: 0; font-size: 15px; color: var(--ink); }
+.form-status:empty { display: none; }
+
+/* ---------- O mnie: podstrona ---------- */
+.bio-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: center; padding-top: clamp(120px, 16vh, 170px); }
+.bio-hero .lead { margin-top: 26px; }
+.bio-hero img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r); }
+.approach { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.3fr); gap: clamp(28px, 6vw, 96px); align-items: start; }
+.pull { margin: 38px 0 0; padding-top: 26px; border-top: 1px solid var(--line); font-stretch: 125%; font-weight: 800; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.12; letter-spacing: -.02em; max-width: 20em; text-wrap: balance; }
+.xp { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.xp li { display: grid; grid-template-columns: minmax(150px, 260px) 1fr; gap: 6px 32px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.xp .k { font-weight: 700; }
+.xp .v { color: var(--muted); }
+.todo { display: inline-block; margin-top: 4px; padding: 2px 10px; border: 1px dashed rgba(241, 237, 228, .35); border-radius: 6px; color: var(--dim); font-size: 15px; }
+.dogs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.dog { margin: 0; }
+.dog img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r); }
+.dog figcaption { margin-top: 16px; }
+.dog figcaption strong { display: block; font-stretch: 125%; font-weight: 800; font-size: 24px; letter-spacing: -.02em; }
+.dog figcaption span { color: var(--muted); }
+.cta-band { background: var(--green); }
+.cta-band .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; }
+.cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.cta-actions .btn-ghost { border-color: var(--green-line); }
+
+/* ---------- Ruch ---------- */
+@keyframes ffMarquee { to { transform: translateX(-50%); } }
+@keyframes ffMarquee3 { to { transform: translateX(-33.3333%); } }
+@keyframes ffRise { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+.rise { animation: ffRise .9s var(--ease) both; }
+.rise-2 { animation-delay: .12s; }
+.rise-3 { animation-delay: .24s; }
+.rise-4 { animation-delay: .36s; }
+
+.js [data-reveal] { opacity: 0; transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.js [data-reveal="up"] { transform: translateY(30px); }
+.js [data-reveal="left"] { transform: translateX(-36px); }
+.js [data-reveal].in { opacity: 1; transform: none; }
+
+html[data-motion="calm"] .band-track { animation-duration: 60s; }
+html[data-motion="calm"] .wall-row { animation-duration: 180s; }
+html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after { animation: none !important; transition: none !important; }
+html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* ---------- Tablet / telefon ---------- */
+@media (max-width: 1000px) {
+  .quotes { grid-template-columns: 1fr; }
+  .formats { grid-template-columns: 1fr; }
+}
+@media (max-width: 859px) {
+  .nav .btn, .brand-mark { display: none; }
+  .nav-links { gap: 16px; font-size: 14px; }
+  .brand { font-size: 17px; }
+
+  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .hero-copy { padding-top: 104px; padding-bottom: 36px; margin-right: 0; }
+  .hero-media { min-height: 58vh; }
+  .hero-media::after { background: linear-gradient(var(--bg) 0%, rgba(12, 22, 17, .15) 26%, rgba(12, 22, 17, 0) 55%, rgba(12, 22, 17, .55) 100%); }
+  .contact-list { margin-top: 32px; }
+  .contact-list a { grid-template-columns: 22px 1fr; }
+  .contact-list .cl-label { display: none; }
+
+  .about, .contact-grid, .signup, .bio-hero, .approach { grid-template-columns: 1fr; }
+  .tiles { grid-template-columns: 1fr; }
+  .tile { aspect-ratio: 4 / 3.6; }
+  .feature { grid-template-columns: 1fr; }
+  .feature-media { order: -1; min-height: 0; aspect-ratio: 16 / 10; }
+  .service { grid-template-columns: 1fr; }
+  .service-photo img { aspect-ratio: 16 / 10; }
+  .bio-hero img { aspect-ratio: 4 / 4.4; }
+  .xp li { grid-template-columns: 1fr; }
+  .finale { height: 78vh; min-height: 520px; }
+}
+@media (max-width: 560px) {
+  .form { grid-template-columns: 1fr; }
+  .dogs { grid-template-columns: 1fr; }
+  .hero-actions .btn, .feature-actions .btn, .cta-actions .btn { flex: 1 1 100%; }
+}
+@media (max-width: 360px) {
+  .nav-links { gap: 12px; }
+  .brand { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="brand"><span class="brand-mark"></span>Future Frisbee</a>
+  <div class="nav-links">
+    <a href="o-mnie.html">O mnie</a>
+    <a href="oferta.html" aria-current="page">Oferta</a>
+    <a href="index.html#kontakt">Kontakt</a>
+    <a href="#zapisy" class="btn btn-primary">Zapisz się</a>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <h1 class="display h1 rise">Oferta</h1>
+    <p class="lead rise rise-2">Każda współpraca zaczyna się od zajęć indywidualnych — tam poznaję Was i ustalamy plan. Nie wiesz, co wybrać? Zadzwoń: <a href="tel:+48795479709">795 479 709</a>.</p>
+    <nav class="jump rise rise-3" aria-label="Usługi">
+      <a href="#indywidualne">Zajęcia indywidualne</a>
+      <a href="#grupowe">Zajęcia grupowe</a>
+      <a href="#zawodnicy">Dla zawodników</a>
+      <a href="#warsztaty">Warsztaty i współpraca</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="indywidualne" class="service">
+    <div class="service-photo" data-reveal="up">
+      <img src="photos/img_5957.webp" sizes="(max-width: 859px) 100vw, 34vw" alt="Brewka wskakuje po dysk" width="1206" height="1100" srcset="photos/img_5957-720.webp 720w, photos/img_5957.webp 1206w" fetchpriority="high">
+    </div>
+    <div data-reveal="up" style="transition-delay: 100ms">
+      <h2 class="display h2">Zajęcia indywidualne</h2>
+      <div class="chips"><span class="chip">Na miejscu</span><span class="chip">Online</span></div>
+      <div class="prices">
+        <div class="price"><div class="price-amount">150 zł</div><div class="price-label">jedno spotkanie</div></div>
+        <div class="price"><div class="price-amount">750 zł</div><div class="price-label">pakiet 6 spotkań — <strong>szóste gratis</strong></div></div>
+      </div>
+      <div class="service-cta"><a href="#zapisy" data-pick="Zajęcia indywidualne" class="btn btn-primary">Zapisz się</a></div>
+      <h3 class="sub">Dla kogo</h3>
+      <div class="prose"><p>Dla każdego, kto zaczyna ze mną pracę — niezależnie od tego, czy chcecie startować w zawodach, czy po prostu lepiej się rozumieć. Psy nerwowe, reaktywne i lękliwe są mile widziane.</p></div>
+      <h3 class="sub">Tematy</h3>
+      <ul class="topics">
+        <li><strong>Dog frisbee</strong> — od pierwszego chwytu po freestyle.</li>
+        <li><strong>Przygotowanie motoryczne (dogfitness)</strong> — siła, stabilizacja i rozgrzewka, żeby pies był sprawny i bezpieczny.</li>
+        <li><strong>Behawiorystyka</strong> — pobudliwość, reaktywność, lęk i frustracja.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="grupowe" class="service">
+    <div class="service-photo" data-reveal="up">
+      <img src="photos/img_5958.webp" sizes="(max-width: 859px) 100vw, 34vw" loading="lazy" decoding="async" alt="Vault — pies odbija się od ciała trenera" width="1206" height="1100" srcset="photos/img_5958-720.webp 720w, photos/img_5958.webp 1206w">
+    </div>
+    <div data-reveal="up" style="transition-delay: 100ms">
+      <h2 class="display h2">Zajęcia grupowe</h2>
+      <div class="chips"><span class="chip">Po zajęciach indywidualnych</span></div>
+      <div class="prices">
+        <div class="price"><div class="price-amount">600 zł</div><div class="price-label">cykl 6 spotkań</div></div>
+      </div>
+      <div class="service-cta"><a href="#zapisy" data-pick="Zajęcia grupowe" class="btn btn-primary">Zapisz się</a></div>
+      <h3 class="sub">Dla kogo</h3>
+      <div class="prose"><p>Dla osób, które mają już za sobą zajęcia indywidualne. Pracujemy w małej grupie, w cyklu 6 spotkań. Cena jest taka sama niezależnie od tematu — dog frisbee, dogfitness czy praca nad zachowaniem.</p></div>
+    </div>
+  </section>
+
+  <section id="zawodnicy" class="service">
+    <div class="service-photo" data-reveal="up">
+      <img src="photos/img_5956.webp" sizes="(max-width: 859px) 100vw, 34vw" loading="lazy" decoding="async" alt="Trener rzuca frisbee" width="1206" height="1100" srcset="photos/img_5956-720.webp 720w, photos/img_5956.webp 1206w">
+    </div>
+    <div data-reveal="up" style="transition-delay: 100ms">
+      <h2 class="display h2">Dla zawodników</h2>
+      <div class="chips"><span class="chip">Trening człowieka</span></div>
+      <div class="prices">
+        <div class="price"><div class="price-amount">450 zł</div><div class="price-label">pierwszy program treningowy</div></div>
+        <div class="price"><div class="price-amount">300 zł</div><div class="price-label">każdy kolejny program przy kontynuacji (co min. 2 miesiące)</div></div>
+      </div>
+      <div class="service-cta"><a href="#zapisy" data-pick="Program treningowy dla zawodnika" class="btn btn-primary">Zapisz się</a></div>
+      <h3 class="sub">Dla kogo</h3>
+      <div class="prose"><p>Dla zawodników dog frisbee, którzy chcą być lepiej przygotowani fizycznie. Program rozpisuję indywidualnie — pod Twój poziom i cele.</p></div>
+      <h3 class="sub">Trening rzutowy bez psów — 50 zł od osoby</h3>
+      <div class="prose"><p>Technika rzutów w małej grupie, bez psów. Dobry sposób, żeby poprawić rzuty, zanim przeniesiesz je na trening z psem. <a href="#zapisy" data-pick="Trening rzutowy bez psów">Zapisz się na trening rzutowy</a></p></div>
+    </div>
+  </section>
+
+  <section id="warsztaty" class="workshops" data-reveal="up">
+    <h2 class="display h2">Warsztaty i współpraca</h2>
+    <p class="lead">Organizujesz wydarzenie dla klubu, szkoły psów albo grupy znajomych? Napisz, co planujesz — ustalimy program, termin i miejsce.</p>
+    <div class="formats">
+      <div class="format"><h3>Seminarium</h3><p>Teoria i praktyka z wybranego tematu: dog frisbee, dogfitness albo praca z pobudliwym psem.</p></div>
+      <div class="format"><h3>Warsztat jednodniowy</h3><p>Dzień pracy na łące w małych grupach, z czasem na indywidualne uwagi.</p></div>
+      <div class="format"><h3>Pokaz</h3><p>Pokaz dog frisbee z Fofonem i Brewką na Twoim wydarzeniu.</p></div>
+    </div>
+    <div class="workshops-foot">
+      <p>Cena ustalana indywidualnie.</p>
+      <a href="#zapisy" data-pick="Warsztaty, seminarium lub pokaz" class="btn btn-primary">Zapytaj o termin</a>
+    </div>
+  </section>
+
+  <section id="zapisy" class="section signup">
+    <div data-reveal="up">
+      <h2 class="display h2">Zapisy i pytania</h2>
+      <p class="lead">Wypełnij formularz — otworzy się Twoja poczta z gotową wiadomością. Możesz też od razu zadzwonić albo napisać.</p>
+      <ul class="contact-list">
+        <li><a href="tel:+48795479709"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span class="cl-label">Telefon</span><span class="cl-value">795 479 709</span></a></li>
+        <li><a href="mailto:future.frisbee.ms@gmail.com"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="cl-label">E-mail</span><span class="cl-value">future.frisbee.ms@gmail.com</span></a></li>
+        <li><a href="https://instagram.com/future_frisbee" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="dot" cx="17.5" cy="6.5" r="1"/></svg><span class="cl-label">Instagram</span><span class="cl-value">@future_frisbee</span></a></li>
+      </ul>
+    </div>
+    <form class="form" data-mailto="future.frisbee.ms@gmail.com" data-reveal="up" style="transition-delay: 100ms">
+      <div class="field full">
+        <label for="f-temat">Czego dotyczy</label>
+        <select id="f-temat" name="temat" required="required">
+          <option value="">Wybierz</option>
+          <option>Zajęcia indywidualne</option>
+          <option>Pakiet 6 zajęć indywidualnych</option>
+          <option>Zajęcia grupowe</option>
+          <option>Program treningowy dla zawodnika</option>
+          <option>Trening rzutowy bez psów</option>
+          <option>Warsztaty, seminarium lub pokaz</option>
+          <option>Inne pytanie</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-imie">Imię</label>
+        <input id="f-imie" name="imie" autocomplete="given-name" required="required">
+      </div>
+      <div class="field">
+        <label for="f-kontakt">Telefon lub e-mail</label>
+        <input id="f-kontakt" name="kontakt" autocomplete="email" required="required">
+      </div>
+      <div class="field full">
+        <label for="f-forma">Forma zajęć</label>
+        <select id="f-forma" name="forma">
+          <option>Na miejscu</option>
+          <option>Online</option>
+          <option>Jeszcze nie wiem</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label for="f-wiadomosc">O psie i o tym, z czym przychodzicie</label>
+        <textarea id="f-wiadomosc" name="wiadomosc" rows="5" placeholder="Rasa, wiek, co już umiecie, nad czym chcecie pracować. Przy warsztatach: miejsce, termin i liczba osób."></textarea>
+      </div>
+      <div class="form-foot">
+        <button type="submit" class="btn btn-primary">Wyślij e-mailem</button>
+        <p class="form-note">Wiadomość wyślesz ze swojej skrzynki — nic nie trafia do żadnej bazy.</p>
+      </div>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <a href="index.html" class="brand"><span class="brand-mark"></span>Future Frisbee</a>
+    <nav class="footer-links">
+      <a href="o-mnie.html">O mnie</a>
+      <a href="oferta.html">Oferta</a>
+      <a href="tel:+48795479709">795 479 709</a>
+      <a href="mailto:future.frisbee.ms@gmail.com">future.frisbee.ms@gmail.com</a>
+      <a href="https://instagram.com/future_frisbee" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+  </div>
+</footer>
+<script>
+// Wspólny skrypt wszystkich stron (bez zależności).
+// build.mjs wkleja go na koniec <body>; w podglądzie .dc.html wywołuje go Component.
+(function () {
+  function init() {
+    if (window.__ffReady) return;
+    var reveal = document.querySelectorAll('[data-reveal]');
+    var forms = document.querySelectorAll('form[data-mailto]');
+    if (!reveal.length && !forms.length) return; // treść jeszcze się nie wyrenderowała
+    window.__ffReady = true;
+    document.documentElement.classList.add('js');
+
+    // Pojawianie się elementów przy przewijaniu
+    reveal.forEach(function (el) {
+      var d = el.getAttribute('data-delay');
+      if (d) el.style.transitionDelay = d + 'ms';
+    });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var el = e.target;
+          el.classList.add('in');
+          io.unobserve(el);
+          setTimeout(function () { el.style.transitionDelay = ''; }, 1400);
+        });
+      }, { threshold: 0.12 });
+      reveal.forEach(function (el) { io.observe(el); });
+    } else {
+      reveal.forEach(function (el) { el.classList.add('in'); });
+    }
+
+    // Wybór usługi w formularzu: przyciski z data-pick i adres ?temat=...
+    function pick(value) {
+      var sel = document.querySelector('form[data-mailto] select[name="temat"]');
+      if (sel && value) sel.value = value;
+    }
+    document.querySelectorAll('[data-pick]').forEach(function (a) {
+      a.addEventListener('click', function () { pick(a.getAttribute('data-pick')); });
+    });
+    try { pick(new URLSearchParams(location.search).get('temat')); } catch (e) {}
+
+    // Formularz → gotowa wiadomość w programie pocztowym
+    forms.forEach(function (form) {
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var f = form.elements;
+        var val = function (n) { return f[n] ? String(f[n].value || '').trim() : ''; };
+        var temat = val('temat') || 'Pytanie';
+        var body = [
+          'Czego dotyczy: ' + temat,
+          'Forma zajęć: ' + (val('forma') || '—'),
+          'Imię: ' + val('imie'),
+          'Kontakt: ' + val('kontakt'),
+          '',
+          val('wiadomosc')
+        ].join('\n');
+        var to = form.getAttribute('data-mailto');
+        location.href = 'mailto:' + to +
+          '?subject=' + encodeURIComponent('Zgłoszenie ze strony: ' + temat) +
+          '&body=' + encodeURIComponent(body);
+        var status = form.querySelector('.form-status');
+        if (status) status.textContent = 'Otwieram Twoją pocztę z gotową wiadomością — wystarczy ją wysłać. ' +
+          'Jeśli nic się nie otworzyło, napisz bezpośrednio na ' + to + ' albo zadzwoń.';
+      });
+    });
+  }
+  window.ffInit = init;
+  init();
+})();
+</script>
+</body>
+</html>
