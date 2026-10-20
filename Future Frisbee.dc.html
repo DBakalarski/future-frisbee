@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Future Frisbee — trening dog frisbee</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #0b0b0d; color: #f2efe9; font-family: 'Archivo', sans-serif; overflow-x: hidden; }
+a { color: #f2efe9; text-decoration: none; }
+a:hover { color: #e8402c; }
+::selection { background: #e8402c; color: #fff; }
+@keyframes ffSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes ffMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes ffRise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes ffFloat { 0%,100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-14px) rotate(-4deg); } }
+@keyframes ffPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(232,64,44,.45); } 50% { box-shadow: 0 0 0 14px rgba(232,64,44,0); } }
+</style>
+</helmet>
+
+<nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 80; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px clamp(18px, 4vw, 40px); background: linear-gradient(rgba(11,11,13,.85), rgba(11,11,13,.55) 70%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);">
+  <a href="#top" style="font-family: 'Archivo Black', sans-serif; font-size: clamp(17px, 2.4vw, 20px); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;">Future<span style="color: #e8402c;">/</span>Frisbee</a>
+  <div style="display: flex; gap: clamp(16px, 3vw, 34px); align-items: center; font-size: 14px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;">
+    <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
+      <a href="#o-mnie" style="color: #b9b5ac;">O mnie</a>
+      <a href="#oferta" style="color: #b9b5ac;">Oferta</a>
+      <a href="#cennik" style="color: #b9b5ac;">Cennik</a>
+      <a href="#galeria" style="color: #b9b5ac;">Galeria</a>
+    </sc-if>
+    <a href="#kontakt" style="background: #e8402c; color: #fff; padding: 11px 20px; border-radius: 999px; white-space: nowrap; animation: ffPulse 2.6s ease-in-out infinite;">Zapisz się</a>
+  </div>
+</nav>
+
+<header id="top" style="position: relative; min-height: 100vh; display: grid; grid-template-columns: {{ heroCols }}; align-items: stretch; overflow: hidden;">
+  <div style="display: flex; flex-direction: column; justify-content: center; padding: clamp(96px, 14vh, 140px) clamp(20px, 4.5vw, 56px) clamp(48px, 8vh, 80px) clamp(20px, 5vw, 64px); position: relative; z-index: 2;">
+    <div style="display: flex; align-items: center; gap: 12px; font-family: ui-monospace, 'SF Mono', monospace; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: #e8402c; animation: ffRise .9s cubic-bezier(.2,.7,.2,1) both;">
+      <span style="width: 34px; height: 2px; background: #e8402c; display: inline-block; flex-shrink: 0;"></span>
+      Trening dog frisbee · Pokazy · Freestyle
+    </div>
+    <h1 style="font-family: 'Archivo Black', sans-serif; font-size: clamp(46px, 7vw, 96px); line-height: .96; margin: 24px 0 0; text-transform: uppercase; letter-spacing: -.01em; animation: ffRise .9s .12s cubic-bezier(.2,.7,.2,1) both;">Naucz psa<br>latać<span style="color: #e8402c;">.</span></h1>
+    <p style="max-width: 460px; font-size: clamp(16px, 2vw, 18px); line-height: 1.65; color: #b9b5ac; margin: 26px 0 0; animation: ffRise .9s .24s cubic-bezier(.2,.7,.2,1) both; text-wrap: pretty;">Treningi dog frisbee dla każdego psa i opiekuna — od pierwszego chwytu po freestyle na zawodach. Prowadzi zawodnik Future Frisbee z dwoma border collie: Fofonem i Brewką.</p>
+    <div style="display: flex; gap: 14px; margin-top: 38px; flex-wrap: wrap; animation: ffRise .9s .36s cubic-bezier(.2,.7,.2,1) both;">
+      <a href="#kontakt" style="background: #e8402c; color: #fff; font-weight: 700; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; padding: 17px 30px; border-radius: 999px; box-shadow: 0 18px 40px rgba(232,64,44,.35);" style-hover="background: #ff5540; color: #fff; transform: translateY(-2px);">Zapisz się na trening</a>
+      <a href="#oferta" style="border: 1px solid rgba(242,239,233,.25); color: #f2efe9; font-weight: 600; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; padding: 17px 26px; border-radius: 999px;" style-hover="border-color: #e8402c; color: #e8402c;">Zobacz ofertę</a>
+    </div>
+    <div style="display: flex; gap: clamp(24px, 4vw, 44px); margin-top: clamp(44px, 7vh, 64px); flex-wrap: wrap; animation: ffRise .9s .48s cubic-bezier(.2,.7,.2,1) both;">
+      <div><div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(24px, 3vw, 30px); color: #f2efe9;">1:1</div><div style="font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #8b877f; margin-top: 4px;">Treningi indywidualne</div></div>
+      <div><div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(24px, 3vw, 30px); color: #f2efe9;">Pokazy</div><div style="font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #8b877f; margin-top: 4px;">Eventy i festiwale</div></div>
+      <div><div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(24px, 3vw, 30px); color: #f2efe9;">2</div><div style="font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #8b877f; margin-top: 4px;">Border collie w teamie</div></div>
+    </div>
+  </div>
+  <div style="position: relative; overflow: hidden; min-height: {{ heroImgMinH }};">
+    <img ref="{{ heroImgRef }}" src="photos/img_5952.png" alt="Fofon łapie frisbee w locie nad plecami trenera" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 30%;">
+    <div style="position: absolute; inset: 0; background: {{ heroOverlay }};"></div>
+  </div>
+  <div style="position: absolute; bottom: 22px; left: clamp(20px, 5vw, 64px); z-index: 3; display: flex; align-items: center; gap: 10px; font-family: ui-monospace, 'SF Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #b9b5ac; text-shadow: 0 2px 8px rgba(0,0,0,.8);">Scrolluj dalej <span style="display: inline-block; animation: ffFloat 2.4s ease-in-out infinite;">▼</span></div>
+</header>
+
+<div style="background: #e8402c; color: #0b0b0d; overflow: hidden; padding: 12px 0; transform: rotate(-1.2deg); margin: -10px -20px 0; position: relative; z-index: 5;">
+  <div style="display: flex; gap: 48px; white-space: nowrap; width: max-content; animation: ffMarquee 22s linear infinite; font-family: 'Archivo Black', sans-serif; font-size: clamp(16px, 2.2vw, 20px); letter-spacing: .08em; text-transform: uppercase;">
+    <span>Dog frisbee</span><span>✦</span><span>Freestyle</span><span>✦</span><span>Toss &amp; Fetch</span><span>✦</span><span>Pokazy</span><span>✦</span><span>Treningi</span><span>✦</span><span>Fofon &amp; Brewka</span><span>✦</span>
+    <span>Dog frisbee</span><span>✦</span><span>Freestyle</span><span>✦</span><span>Toss &amp; Fetch</span><span>✦</span><span>Pokazy</span><span>✦</span><span>Treningi</span><span>✦</span><span>Fofon &amp; Brewka</span><span>✦</span>
+  </div>
+</div>
+
+<section id="o-mnie" data-screen-label="O mnie" style="display: grid; grid-template-columns: {{ aboutCols }}; gap: clamp(36px, 6vw, 72px); align-items: center; padding: clamp(80px, 12vw, 140px) clamp(20px, 5vw, 64px); max-width: 1280px; margin: 0 auto; box-sizing: border-box;">
+  <div data-reveal="left" style="position: relative;">
+    <img src="photos/img_5954.png" alt="Trener z Fofonem i Brewką" style="width: 100%; border-radius: 18px; display: block; box-shadow: 0 40px 80px rgba(0,0,0,.5);">
+    <div style="position: absolute; right: -8px; bottom: -16px; background: #e8402c; color: #fff; font-family: 'Archivo Black', sans-serif; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; padding: 13px 18px; border-radius: 12px; transform: rotate(3deg);">Fofon &amp; Brewka</div>
+  </div>
+  <div data-reveal="up">
+    <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: #e8402c;">01 — O mnie</div>
+    <h2 style="font-family: 'Archivo Black', sans-serif; font-size: clamp(32px, 4.4vw, 56px); line-height: 1.02; text-transform: uppercase; margin: 18px 0 0;">Frisbee to nasz wspólny język</h2>
+    <p style="font-size: 17px; line-height: 1.75; color: #b9b5ac; margin: 26px 0 0; text-wrap: pretty;">Jestem trenerem dog frisbee i zawodnikiem freestyle. Na co dzień trenuję i startuję z dwoma border collie — doświadczonym Fofonem i młodą Brewką. Występujemy na pokazach i zawodach w całej Polsce.</p>
+    <p style="font-size: 17px; line-height: 1.75; color: #b9b5ac; margin: 18px 0 0; text-wrap: pretty;">Na treningach uczę nie tylko rzutów i chwytów, ale przede wszystkim budowania relacji, bezpiecznej pracy ciałem psa i radości ze wspólnego ruchu. Bez presji, za to z planem.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 34px;">
+      <div style="border: 1px solid rgba(242,239,233,.14); border-radius: 14px; padding: 18px 20px;"><div style="font-weight: 700; font-size: 16px;">Bezpieczeństwo psa</div><div style="font-size: 14px; color: #8b877f; margin-top: 6px; line-height: 1.5;">Rozgrzewka, technika lądowań i rzuty dopasowane do psa.</div></div>
+      <div style="border: 1px solid rgba(242,239,233,.14); border-radius: 14px; padding: 18px 20px;"><div style="font-weight: 700; font-size: 16px;">Od zera do freestyle</div><div style="font-size: 14px; color: #8b877f; margin-top: 6px; line-height: 1.5;">Plan treningowy od pierwszego dysku po sekwencje pokazowe.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="oferta" data-screen-label="Oferta" style="padding: clamp(72px, 10vw, 120px) clamp(20px, 5vw, 64px) clamp(84px, 12vw, 140px); background: #101013; border-top: 1px solid rgba(242,239,233,.07); border-bottom: 1px solid rgba(242,239,233,.07);">
+  <div style="max-width: 1280px; margin: 0 auto;">
+    <div data-reveal="up" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;">
+      <div>
+        <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: #e8402c;">02 — Oferta</div>
+        <h2 style="font-family: 'Archivo Black', sans-serif; font-size: clamp(32px, 4.4vw, 56px); line-height: 1.02; text-transform: uppercase; margin: 18px 0 0;">Trenujemy tak,<br>jak lata dysk</h2>
+      </div>
+      <p style="max-width: 380px; font-size: 16px; line-height: 1.7; color: #8b877f; text-wrap: pretty;">Każdy pies zaczyna z innego miejsca. Wybierz format, a program dopasuję do Waszego poziomu i celów.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 22px; margin-top: 56px;">
+      <div data-reveal="up" data-delay="0" style="background: #17171b; border: 1px solid rgba(242,239,233,.1); border-radius: 20px; padding: 34px 30px; display: flex; flex-direction: column; gap: 16px; transition: transform .35s ease, border-color .35s ease;" style-hover="transform: translateY(-8px); border-color: rgba(232,64,44,.6);">
+        <div style="font-family: 'Archivo Black', sans-serif; font-size: 40px; color: #e8402c;">01</div>
+        <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 24px; text-transform: uppercase; margin: 0;">Trening indywidualny</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #b9b5ac; margin: 0; text-wrap: pretty;">Godzina 1:1 — dokładna analiza Waszej pracy, technika rzutów, chwyty, bezpieczne lądowania i plan na kolejne tygodnie.</p>
+        <div style="margin-top: auto; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #8b877f;">60 min · Twoja okolica lub online</div>
+      </div>
+      <div data-reveal="up" data-delay="120" style="background: #17171b; border: 1px solid rgba(242,239,233,.1); border-radius: 20px; padding: 34px 30px; display: flex; flex-direction: column; gap: 16px; transition: transform .35s ease, border-color .35s ease;" style-hover="transform: translateY(-8px); border-color: rgba(232,64,44,.6);">
+        <div style="font-family: 'Archivo Black', sans-serif; font-size: 40px; color: #e8402c;">02</div>
+        <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 24px; text-transform: uppercase; margin: 0;">Trening grupowy</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #b9b5ac; margin: 0; text-wrap: pretty;">Małe grupy do 5 psów. Wspólna rozgrzewka, praca nad techniką i motywacją, dużo latających dysków i dobrej energii.</p>
+        <div style="margin-top: auto; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #8b877f;">90 min · max 5 zespołów</div>
+      </div>
+      <div data-reveal="up" data-delay="240" style="background: #17171b; border: 1px solid rgba(242,239,233,.1); border-radius: 20px; padding: 34px 30px; display: flex; flex-direction: column; gap: 16px; transition: transform .35s ease, border-color .35s ease;" style-hover="transform: translateY(-8px); border-color: rgba(232,64,44,.6);">
+        <div style="font-family: 'Archivo Black', sans-serif; font-size: 40px; color: #e8402c;">03</div>
+        <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 24px; text-transform: uppercase; margin: 0;">Praca behawioralna</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #b9b5ac; margin: 0; text-wrap: pretty;">Problemy z pobudliwością, frustracją, brakiem skupienia czy motywacją? Pracujemy nad zachowaniem psa przez ruch, zabawę i jasne zasady.</p>
+        <div style="margin-top: auto; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #8b877f;">60 min · po konsultacji</div>
+      </div>
+      <div data-reveal="up" data-delay="360" style="background: #17171b; border: 1px solid rgba(242,239,233,.1); border-radius: 20px; padding: 34px 30px; display: flex; flex-direction: column; gap: 16px; transition: transform .35s ease, border-color .35s ease;" style-hover="transform: translateY(-8px); border-color: rgba(232,64,44,.6);">
+        <div style="font-family: 'Archivo Black', sans-serif; font-size: 40px; color: #e8402c;">04</div>
+        <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 24px; text-transform: uppercase; margin: 0;">Pokazy dog frisbee</h3>
+        <p style="font-size: 15px; line-height: 1.7; color: #b9b5ac; margin: 0; text-wrap: pretty;">Widowiskowy freestyle z Fofonem i Brewką na eventach, festynach i imprezach firmowych. Muzyka, triki, wysokie skoki.</p>
+        <div style="margin-top: auto; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #8b877f;">15–30 min · cała Polska</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cennik" data-screen-label="Cennik" style="padding: clamp(80px, 11vw, 130px) clamp(20px, 5vw, 64px); max-width: 1080px; margin: 0 auto; box-sizing: border-box;">
+  <div data-reveal="up" style="text-align: center;">
+    <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: #e8402c;">03 — Cennik</div>
+    <h2 style="font-family: 'Archivo Black', sans-serif; font-size: clamp(32px, 4.4vw, 56px); text-transform: uppercase; margin: 18px 0 0;">Proste zasady gry</h2>
+  </div>
+  <div style="margin-top: 56px; display: flex; flex-direction: column; gap: 2px; border-radius: 20px; overflow: hidden;">
+    <div data-reveal="up" data-delay="0" style="display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; background: #131316; padding: clamp(20px, 3vw, 28px) clamp(18px, 3vw, 34px);" style-hover="background: #1a1a1f;">
+      <div><div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(16px, 2.2vw, 20px); text-transform: uppercase;">Trening indywidualny</div><div style="font-size: 14px; color: #8b877f; margin-top: 6px;">60 min, 1 pies + opiekun</div></div>
+      <div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.8vw, 28px); color: #e8402c; white-space: nowrap;">180 zł</div>
+    </div>
+    <div data-reveal="up" data-delay="80" style="display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; background: #131316; padding: clamp(20px, 3vw, 28px) clamp(18px, 3vw, 34px);" style-hover="background: #1a1a1f;">
+      <div><div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(16px, 2.2vw, 20px); text-transform: uppercase;">Pakiet 5 treningów</div><div style="font-size: 14px; color: #8b877f; margin-top: 6px;">Do wykorzystania w 3 miesiące</div></div>
+      <div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.8vw, 28px); color: #e8402c; white-space: nowrap;">800 zł</div>
+    </div>
+    <div data-reveal="up" data-delay="160" style="display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; background: #131316; padding: clamp(20px, 3vw, 28px) clamp(18px, 3vw, 34px);" style-hover="background: #1a1a1f;">
+      <div><div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(16px, 2.2vw, 20px); text-transform: uppercase;">Trening grupowy</div><div style="font-size: 14px; color: #8b877f; margin-top: 6px;">90 min, max 5 zespołów</div></div>
+      <div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.8vw, 28px); color: #e8402c; white-space: nowrap;">70 zł / zespół</div>
+    </div>
+    <div data-reveal="up" data-delay="240" style="display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; background: #131316; padding: clamp(20px, 3vw, 28px) clamp(18px, 3vw, 34px);" style-hover="background: #1a1a1f;">
+      <div><div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(16px, 2.2vw, 20px); text-transform: uppercase;">Pokaz na evencie</div><div style="font-size: 14px; color: #8b877f; margin-top: 6px;">Program, muzyka, dojazd — ustalane indywidualnie</div></div>
+      <div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 2.8vw, 28px); color: #e8402c; white-space: nowrap;">Wycena</div>
+    </div>
+  </div>
+  <p data-reveal="up" style="text-align: center; font-size: 14px; color: #8b877f; margin-top: 26px;">Pierwsza konsultacja online — bezpłatna. Dojazd poza miasto wyceniany indywidualnie.</p>
+</section>
+
+<section id="opinie" data-screen-label="Opinie" style="padding: clamp(72px, 10vw, 120px) clamp(20px, 5vw, 64px) clamp(84px, 12vw, 140px); background: #101013; border-top: 1px solid rgba(242,239,233,.07); border-bottom: 1px solid rgba(242,239,233,.07);">
+  <div style="max-width: 1280px; margin: 0 auto;">
+    <div data-reveal="up">
+      <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: #e8402c;">04 — Opinie</div>
+      <h2 style="font-family: 'Archivo Black', sans-serif; font-size: clamp(32px, 4.4vw, 56px); text-transform: uppercase; margin: 18px 0 0;">Zespoły, które już latają</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 22px; margin-top: 56px;">
+      <figure data-reveal="up" data-delay="0" style="background: #17171b; border: 1px solid rgba(242,239,233,.1); border-radius: 20px; padding: 32px 30px; margin: 0; display: flex; flex-direction: column; gap: 20px;">
+        <div style="color: #e8402c; font-size: 18px; letter-spacing: 4px;">★★★★★</div>
+        <blockquote style="margin: 0; font-size: 16px; line-height: 1.75; color: #d9d5cc; text-wrap: pretty;">„Po trzech treningach mój pies pierwszy raz złapał dysk w locie. Świetne wyczucie i psa, i człowieka — wszystko krok po kroku.”</blockquote>
+        <figcaption style="margin-top: auto; font-size: 14px; color: #8b877f;"><strong style="color: #f2efe9;">Kasia</strong> &amp; border collie Nuka</figcaption>
+      </figure>
+      <figure data-reveal="up" data-delay="120" style="background: #17171b; border: 1px solid rgba(242,239,233,.1); border-radius: 20px; padding: 32px 30px; margin: 0; display: flex; flex-direction: column; gap: 20px;">
+        <div style="color: #e8402c; font-size: 18px; letter-spacing: 4px;">★★★★★</div>
+        <blockquote style="margin: 0; font-size: 16px; line-height: 1.75; color: #d9d5cc; text-wrap: pretty;">„Najlepsza inwestycja w naszą relację. Duży nacisk na bezpieczeństwo — nauczyłem się rzucać tak, żeby pies lądował zdrowo.”</blockquote>
+        <figcaption style="margin-top: auto; font-size: 14px; color: #8b877f;"><strong style="color: #f2efe9;">Michał</strong> &amp; aussie Kira</figcaption>
+      </figure>
+      <figure data-reveal="up" data-delay="240" style="background: #17171b; border: 1px solid rgba(242,239,233,.1); border-radius: 20px; padding: 32px 30px; margin: 0; display: flex; flex-direction: column; gap: 20px;">
+        <div style="color: #e8402c; font-size: 18px; letter-spacing: 4px;">★★★★★</div>
+        <blockquote style="margin: 0; font-size: 16px; line-height: 1.75; color: #d9d5cc; text-wrap: pretty;">„Pokaz na naszym festynie zrobił furorę — Fofon i Brewka skradli całe show. Profesjonalny kontakt od wyceny po występ.”</blockquote>
+        <figcaption style="margin-top: auto; font-size: 14px; color: #8b877f;"><strong style="color: #f2efe9;">Organizator</strong> festynu miejskiego</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="galeria" data-screen-label="Galeria" style="padding: clamp(80px, 11vw, 130px) clamp(20px, 5vw, 64px); max-width: 1280px; margin: 0 auto; box-sizing: border-box;">
+  <div data-reveal="up" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;">
+    <div>
+      <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: #e8402c;">05 — Galeria</div>
+      <h2 style="font-family: 'Archivo Black', sans-serif; font-size: clamp(32px, 4.4vw, 56px); text-transform: uppercase; margin: 18px 0 0;">Złapane w locie</h2>
+    </div>
+    <a href="https://instagram.com/future_frisbee" target="_blank" rel="noopener" style="font-size: 14px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #b9b5ac; border-bottom: 1px solid rgba(242,239,233,.25); padding-bottom: 4px;" style-hover="color: #e8402c; border-color: #e8402c;">@future_frisbee ↗</a>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); grid-auto-rows: clamp(200px, 26vw, 240px); gap: 16px; margin-top: 52px;">
+    <div data-reveal="up" data-delay="0" style="grid-row: span 2; border-radius: 18px; overflow: hidden;"><img src="photos/img_5957.png" alt="Brewka wskakuje po dysk" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1);" style-hover="transform: scale(1.06);"></div>
+    <div data-reveal="up" data-delay="100" style="border-radius: 18px; overflow: hidden;"><img src="photos/img_5955.png" alt="Pokaz freestyle na szczycie Góry Żar" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1);" style-hover="transform: scale(1.06);"></div>
+    <div data-reveal="up" data-delay="200" style="border-radius: 18px; overflow: hidden;"><img src="photos/img_5956.png" alt="Rzut frisbee podczas pokazu" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1);" style-hover="transform: scale(1.06);"></div>
+    <div data-reveal="up" data-delay="150" style="border-radius: 18px; overflow: hidden;"><img src="photos/img_5958.png" alt="Vault — pies odbija się od ciała trenera" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1);" style-hover="transform: scale(1.06);"></div>
+  </div>
+</section>
+
+<section id="kontakt" data-screen-label="Kontakt" style="position: relative; padding: clamp(90px, 13vw, 150px) clamp(20px, 5vw, 64px) clamp(80px, 11vw, 120px); background: #e8402c; color: #14100f; overflow: hidden;">
+  <div style="max-width: 1080px; margin: 0 auto; position: relative; z-index: 2; text-align: center;">
+    <div data-reveal="up" style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: rgba(20,16,15,.7);">06 — Zapisy</div>
+    <h2 data-reveal="up" style="font-family: 'Archivo Black', sans-serif; font-size: clamp(38px, 6.4vw, 84px); line-height: .98; text-transform: uppercase; margin: 20px 0 0;">Gotowi na pierwszy lot?</h2>
+    <p data-reveal="up" style="max-width: 560px; margin: 26px auto 0; font-size: clamp(16px, 2vw, 18px); line-height: 1.7; color: rgba(20,16,15,.75); text-wrap: pretty;">Napisz, ile ma Twój pies, co już potraficie i gdzie trenujecie — odezwę się z propozycją terminu.</p>
+    <div data-reveal="up" style="display: flex; gap: 16px; justify-content: center; margin-top: 44px; flex-wrap: wrap;">
+      <a href="https://instagram.com/future_frisbee" target="_blank" rel="noopener" style="background: #14100f; color: #fff; font-weight: 700; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; padding: 20px 38px; border-radius: 999px;" style-hover="background: #000; color: #fff; transform: translateY(-2px);">Napisz na Instagramie</a>
+      <a href="mailto:kontakt@futurefrisbee.pl" style="border: 2px solid #14100f; color: #14100f; font-weight: 700; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; padding: 18px 34px; border-radius: 999px;" style-hover="background: rgba(20,16,15,.1); color: #14100f;">kontakt@futurefrisbee.pl</a>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Finał — chwyt" style="position: relative; height: 92vh; overflow: hidden; background: #0b0b0d;">
+  <img ref="{{ endImgRef }}" src="photos/img_5953.png" alt="Fofon łapie frisbee w locie" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%;">
+  <div style="position: absolute; inset: 0; background: linear-gradient(#0b0b0d 0%, rgba(11,11,13,.3) 22%, transparent 45%, rgba(11,11,13,.75) 100%);"></div>
+  <div style="position: absolute; left: 0; right: 0; bottom: clamp(28px, 6vh, 60px); text-align: center;">
+    <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #e8402c;">Złapane.</div>
+    <div style="font-family: 'Archivo Black', sans-serif; font-size: clamp(24px, 3.4vw, 40px); text-transform: uppercase; color: #f2efe9; margin-top: 10px; text-shadow: 0 4px 20px rgba(0,0,0,.6);">Do zobaczenia na łące</div>
+  </div>
+</section>
+
+<footer style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 28px clamp(20px, 5vw, 64px); font-size: 13px; color: #8b877f; flex-wrap: wrap;">
+  <div style="font-family: 'Archivo Black', sans-serif; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: #f2efe9;">Future<span style="color: #e8402c;">/</span>Frisbee</div>
+  <div>Fofon &amp; Brewka · dog frisbee · Polska</div>
+  <a href="https://instagram.com/future_frisbee" target="_blank" rel="noopener" style="color: #8b877f;" style-hover="color: #e8402c;">Instagram ↗</a>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#e8402c&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#e8402c&quot;, &quot;#ff7a00&quot;, &quot;#2cc9a8&quot;, &quot;#e0c93c&quot;], &quot;section&quot;: &quot;Wygląd&quot;}, &quot;ksztalt&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;miękki&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;miękki&quot;, &quot;ostry&quot;], &quot;section&quot;: &quot;Wygląd&quot;}, &quot;animacje&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;dynamiczne&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;dynamiczne&quot;, &quot;spokojne&quot;, &quot;wyłączone&quot;], &quot;section&quot;: &quot;Animacje&quot;}}">
+class Component extends DCLogic {
+  heroImgRef = React.createRef();
+  endImgRef = React.createRef();
+  state = { isMobile: typeof window !== 'undefined' && window.innerWidth < 860 };
+
+  componentDidMount() {
+    this._mq = window.matchMedia('(max-width: 859px)');
+    this._onMq = () => this.setState({ isMobile: this._mq.matches });
+    this._mq.addEventListener('change', this._onMq);
+    this._onMq();
+    this._setupReveal();
+    this._applyTweaks();
+  }
+
+  componentDidUpdate() { this._applyTweaks(); }
+
+  _applyTweaks() {
+    const accent = this.props.accent ?? '#e8402c';
+    const anim = this.props.animacje ?? 'dynamiczne';
+    const ksztalt = this.props.ksztalt ?? 'miękki';
+    // --- accent recolor: swap the brand red everywhere it appears in inline styles ---
+    const hexToRgb = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)].join(', ');
+    const from = ['#e8402c', 'e8402c', '232, 64, 44'];
+    if (this._appliedAccent && this._appliedAccent !== '#e8402c') from.push(this._appliedAccent, this._appliedAccent.slice(1), hexToRgb(this._appliedAccent));
+    const toRgb = hexToRgb(accent);
+    document.querySelectorAll('[style]').forEach(el => {
+      let css = el.style.cssText, orig = css;
+      from.forEach(f => { css = css.split(f).join(f.includes(',') ? toRgb : (f.startsWith('#') ? accent : accent.slice(1))); });
+      if (css !== orig) el.style.cssText = css;
+    });
+    this._appliedAccent = accent;
+    // --- motion energy ---
+    document.querySelectorAll('[style]').forEach(el => {
+      const a = el.style.animationName || '';
+      if (a.includes('ffMarquee')) { el.style.animationDuration = anim === 'spokojne' ? '48s' : '22s'; el.style.animationPlayState = anim === 'wyłączone' ? 'paused' : 'running'; }
+      if (a.includes('ffPulse')) el.style.animationPlayState = anim === 'dynamiczne' ? 'running' : 'paused';
+      if (a.includes('ffFloat')) el.style.animationPlayState = anim === 'wyłączone' ? 'paused' : 'running';
+      if (a.includes('ffRise') && anim === 'wyłączone') el.style.animation = 'none';
+    });
+    if (anim === 'wyłączone') {
+      if (this._io) this._io.disconnect();
+      document.querySelectorAll('[data-reveal]').forEach(el => { el.style.transition = 'none'; el.style.opacity = '1'; el.style.transform = 'none'; });
+    }
+    // --- shape character: soft studio vs sharp poster ---
+    document.querySelectorAll('[style]').forEach(el => {
+      const r = el.style.borderRadius;
+      if (!r) return;
+      if (!el.dataset.ffR) el.dataset.ffR = r;
+      if (ksztalt === 'ostry') el.style.borderRadius = el.dataset.ffR === '999px' ? '6px' : (parseFloat(el.dataset.ffR) >= 10 ? '2px' : el.dataset.ffR);
+      else el.style.borderRadius = el.dataset.ffR;
+    });
+  }
+
+  componentWillUnmount() {
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._io) this._io.disconnect();
+    if (this._mq) this._mq.removeEventListener('change', this._onMq);
+  }
+
+  _setupReveal() {
+    const els = document.querySelectorAll('[data-reveal]');
+    els.forEach(el => {
+      const dir = el.getAttribute('data-reveal');
+      el.style.opacity = '0';
+      el.style.transform = dir === 'left' ? 'translateX(-40px)' : 'translateY(34px)';
+      el.style.transition = 'opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1)';
+      el.style.transitionDelay = (el.getAttribute('data-delay') || 0) + 'ms';
+    });
+    this._io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'none';
+          this._io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(el => this._io.observe(el));
+  }
+
+  renderVals() {
+    const m = this.state.isMobile;
+    return {
+      heroImgRef: this.heroImgRef,
+      endImgRef: this.endImgRef,
+      showNavLinks: !m,
+      heroCols: m ? '1fr' : '1.05fr 1fr',
+      aboutCols: m ? '1fr' : '1fr 1.1fr',
+      heroImgMinH: m ? '58vh' : '0',
+      heroOverlay: m
+        ? 'linear-gradient(#0b0b0d 0%, rgba(11,11,13,.15) 26%, transparent 55%, rgba(11,11,13,.55) 100%)'
+        : 'linear-gradient(90deg, #0b0b0d 0%, rgba(11,11,13,.25) 30%, transparent 60%), linear-gradient(rgba(11,11,13,.35), transparent 30%, transparent 70%, #0b0b0d)'
+    };
+  }
+}
+</script>
+</body>
+</html>
