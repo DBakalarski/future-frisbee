@@ -348,16 +348,20 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
 
   .about, .contact-grid, .signup, .bio-hero, .approach { grid-template-columns: 1fr; }
   .tiles { grid-template-columns: 1fr; }
-  .tile { aspect-ratio: 4 / 3.6; }
+  .tile { aspect-ratio: 16 / 9; }
+  .tile img { object-position: 20% 42%; } /* szerszy kadr ucina znaczek „1/4” u góry */
+  .about-photo { max-width: 480px; }
+  .bio-hero img { max-width: 480px; }
   .feature { grid-template-columns: 1fr; }
   .feature-media { order: -1; min-height: 0; aspect-ratio: 16 / 10; }
   .service { grid-template-columns: 1fr; }
   .service-photo img { aspect-ratio: 16 / 10; }
-  .bio-hero img { aspect-ratio: 4 / 4.4; }
   .xp li { grid-template-columns: 1fr; }
   .finale { height: 78vh; min-height: 520px; }
 }
 @media (max-width: 560px) {
+  .tile { aspect-ratio: 4 / 3; }
+  .tile img { object-position: 20% 70%; }
   .form { grid-template-columns: 1fr; }
   .dogs { grid-template-columns: 1fr; }
   .hero-actions .btn, .feature-actions .btn, .cta-actions .btn { flex: 1 1 100%; }
