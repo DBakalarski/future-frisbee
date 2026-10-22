@@ -40,10 +40,6 @@ const MOBILE = '(max-width: 859px)';
 const VARS = {};
 const FLAGS = {};
 
-const favicon =
-  'data:image/svg+xml,' +
-  encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#1c4732"/><circle cx="16" cy="16" r="13" fill="none" stroke="#f1ede4" stroke-width="2"/><circle cx="16" cy="16" r="8" fill="none" stroke="#f1ede4" stroke-width="1" opacity=".45"/></svg>');
-
 // ---------------------------------------------------------------------------
 
 const read = f => readFileSync(join(ROOT, f), 'utf8');
@@ -154,7 +150,7 @@ function build({ src: srcFile, out: outFile, description }) {
         set('srcset', `photos/${m[1]}-720.webp 720w, ${s} ${w}w`);
         if (get('sizes') === undefined) set('sizes', '100vw');
       }
-      if (firstImg) {
+      if (firstImg && m) { // logo w menu nie przejmuje priorytetu zdjęcia
         del('loading');
         set('fetchpriority', 'high');
         firstImg = false;
@@ -196,7 +192,8 @@ function build({ src: srcFile, out: outFile, description }) {
 <meta property="og:locale" content="pl_PL">
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${description}">
-<link rel="icon" href="${favicon}">
+<link rel="icon" type="image/png" href="logo/favicon.png">
+<link rel="apple-touch-icon" href="logo/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 ${fontLinks.join('\n')}

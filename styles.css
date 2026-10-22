@@ -74,10 +74,8 @@ a { color: inherit; text-decoration: none; }
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
 }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-stretch: 125%; font-weight: 800; font-size: 19px; letter-spacing: -.01em; white-space: nowrap; }
-.brand-mark {
-  width: 26px; height: 26px; border-radius: 50%; flex: none; background: var(--green);
-  box-shadow: inset 0 0 0 2px var(--ink), inset 0 0 0 7px var(--green), inset 0 0 0 8px rgba(241, 237, 228, .4);
-}
+.brand-mark { flex: none; width: auto; height: 40px; } /* logo: logo/logo-mark.webp */
+.footer .brand-mark { height: 34px; }
 .nav-links { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); font-size: 15px; font-weight: 600; }
 .nav-links a:not(.btn) { color: var(--muted); transition: color .2s; }
 .nav-links a:not(.btn):hover, .nav-links a[aria-current] { color: var(--ink); }
@@ -126,7 +124,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- O mnie (skrót na stronie głównej) ---------- */
 .about { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(36px, 6vw, 88px); align-items: center; }
 .about-photo { position: relative; }
-.about-photo img { width: 100%; border-radius: var(--r); box-shadow: 0 40px 80px -24px rgba(0, 0, 0, .7); }
+.about-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 85%; border-radius: var(--r); box-shadow: 0 40px 80px -24px rgba(0, 0, 0, .7); }
 .photo-tag {
   position: absolute; right: -8px; bottom: -14px; padding: 12px 18px; border-radius: var(--r-sm);
   background: var(--green); color: var(--ink); font-stretch: 125%; font-weight: 800; font-size: 15px;
@@ -143,7 +141,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Oferta: kafelki ze zdjęciami ---------- */
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .tile { position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--r); background: var(--surface-2); isolation: isolate; }
-.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 20% 50%; transition: transform 1s var(--ease); }
+.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; transition: transform 1s var(--ease); }
 .tile::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10, 20, 15, 0) 25%, rgba(10, 20, 15, .6) 55%, rgba(10, 20, 15, .96) 100%); }
 .tile-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(20px, 2.4vw, 30px); }
 .tile-body p { margin: 10px 0 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
@@ -159,7 +157,7 @@ a { color: inherit; text-decoration: none; }
 .feature-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .feature-actions .btn-ghost { border-color: var(--green-line); }
 .feature-media { position: relative; min-height: 340px; overflow: hidden; }
-.feature-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 45% 70%; transform: scale(1.25); transform-origin: 25% 90%; } /* kadr ucina znaczek „1/4” ze zrzutu z Instagrama */
+.feature-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
 /* ---------- Opinie ---------- */
 .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 56px); }
@@ -185,7 +183,8 @@ a { color: inherit; text-decoration: none; }
 .wall { position: absolute; inset: -6% -4%; display: flex; flex-direction: column; justify-content: center; gap: 14px; transform: rotate(-4deg); }
 .wall-row { display: flex; gap: 14px; width: max-content; animation: ffMarquee3 90s linear infinite; }
 .wall-row.rev { animation-direction: reverse; animation-duration: 110s; }
-.wall-row img { flex: none; width: auto; height: clamp(180px, 27vh, 290px); aspect-ratio: 4 / 5; object-fit: cover; object-position: 20% 50%; border-radius: var(--r-sm); }
+.wall-row img { flex: none; width: auto; height: clamp(180px, 27vh, 290px); aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-sm); }
+.wall-row img.wide { aspect-ratio: 3 / 2; } /* zdjęcia poziome */
 .finale::before {
   content: ""; position: absolute; inset: 0; z-index: 1;
   background: radial-gradient(ellipse 60% 55% at center, rgba(12, 22, 17, .86) 0%, rgba(12, 22, 17, .6) 55%, rgba(12, 22, 17, .4) 100%),
@@ -211,7 +210,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Oferta: usługa ---------- */
 .service { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.4fr); gap: clamp(28px, 5vw, 80px); align-items: start; padding: clamp(48px, 7vw, 96px) 0; border-top: 1px solid var(--line); }
-.service-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 20% 50%; border-radius: var(--r); }
+.service-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 25%; border-radius: var(--r); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .chip { padding: 6px 13px; border-radius: var(--pill); background: var(--green); font-size: 14px; font-weight: 600; }
 .prices { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
@@ -275,6 +274,7 @@ a { color: inherit; text-decoration: none; }
 .dogs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .dog { margin: 0; }
 .dog img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r); }
+.dog img.focus-left { object-position: 22% 50%; } /* zdjęcie poziome: pysk psa przy lewej krawędzi */
 .dog figcaption { margin-top: 16px; }
 .dog figcaption strong { display: block; font-stretch: 125%; font-weight: 800; font-size: 24px; letter-spacing: -.02em; }
 .dog figcaption span { color: var(--muted); }
@@ -314,7 +314,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
   .formats { grid-template-columns: 1fr; }
 }
 @media (max-width: 859px) {
-  .nav .btn, .brand-mark { display: none; }
+  .nav .btn, .nav .brand-mark { display: none; }
   .nav-links { gap: 16px; font-size: 14px; }
   .brand { font-size: 17px; }
 
@@ -329,7 +329,6 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
   .about, .contact-grid, .signup, .bio-hero, .approach { grid-template-columns: 1fr; }
   .tiles { grid-template-columns: 1fr; }
   .tile { aspect-ratio: 16 / 9; }
-  .tile img { object-position: 20% 42%; } /* szerszy kadr ucina znaczek „1/4” u góry */
   .about-photo { max-width: 480px; }
   .bio-hero img { max-width: 480px; }
   .feature { grid-template-columns: 1fr; }
@@ -341,7 +340,6 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
 }
 @media (max-width: 560px) {
   .tile { aspect-ratio: 4 / 3; }
-  .tile img { object-position: 20% 70%; }
   .form { grid-template-columns: 1fr; }
   .dogs { grid-template-columns: 1fr; }
   .hero-actions .btn, .feature-actions .btn, .cta-actions .btn { flex: 1 1 100%; }
