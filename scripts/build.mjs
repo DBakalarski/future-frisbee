@@ -198,7 +198,7 @@ function build({ src: srcFile, out: outFile, description }) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 ${fontLinks.join('\n')}
 ${preload}
-<script>document.documentElement.className='js'</script>
+<script>document.documentElement.className='js static'</script>
 <style>
 ${css}
 </style>

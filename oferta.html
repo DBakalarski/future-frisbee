@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="photos/img_6910.webp" imagesrcset="photos/img_6910-720.webp 720w, photos/img_6910.webp 1206w" imagesizes="(max-width: 859px) 100vw, 34vw" fetchpriority="high">
-<script>document.documentElement.className='js'</script>
+<script>document.documentElement.className='js static'</script>
 <style>
 /* Wspólne style wszystkich stron Future Frisbee.
    Kolory marki w jednym miejscu — zmiana tutaj zmienia całą stronę. */
@@ -52,6 +52,7 @@ body {
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
+a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dwie linie */
 ::selection { background: var(--accent); color: #fff; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
@@ -232,6 +233,8 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Oferta: usługa ---------- */
 .service { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.4fr); gap: clamp(28px, 5vw, 80px); align-items: start; padding: clamp(48px, 7vw, 96px) 0; border-top: 1px solid var(--line); }
 .service-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 25%; border-radius: var(--r); }
+.service-photo img.focus-top { object-position: 50% 0; }  /* głowa przy górnej krawędzi */
+.service-photo img.focus-low { object-position: 50% 70%; } /* trener i pies w dolnej części */
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .chip { padding: 6px 13px; border-radius: var(--pill); background: var(--green); font-size: 14px; font-weight: 600; }
 .prices { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
@@ -284,13 +287,16 @@ a { color: inherit; text-decoration: none; }
 /* ---------- O mnie: podstrona ---------- */
 .bio-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: center; padding-top: clamp(120px, 16vh, 170px); }
 .bio-hero .lead { margin-top: 26px; }
-.bio-hero img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r); }
+.bio-hero img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 10%; border-radius: var(--r); } /* 3:4 — mieszczą się stopy i pies */
 .approach { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.3fr); gap: clamp(28px, 6vw, 96px); align-items: start; }
 .pull { margin: 38px 0 0; padding-top: 26px; border-top: 1px solid var(--line); font-stretch: 125%; font-weight: 800; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.12; letter-spacing: -.02em; max-width: 20em; text-wrap: balance; }
 .xp { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .xp li { display: grid; grid-template-columns: minmax(150px, 260px) 1fr; gap: 6px 32px; padding: 22px 0; border-bottom: 1px solid var(--line); }
 .xp .k { font-weight: 700; }
 .xp .v { color: var(--muted); }
+/* Wersja do publikacji (build dodaje klasę "static"): bez ramek „Do uzupełnienia”,
+   a wiersze bez żadnej treści znikają. W narzędziu do projektowania widać je dalej. */
+html.static .xp .todo, html.static .xp li:has(.v > .todo:only-child) { display: none; }
 .todo { display: inline-block; margin-top: 4px; padding: 2px 10px; border: 1px dashed rgba(241, 237, 228, .35); border-radius: 6px; color: var(--dim); font-size: 15px; }
 .dogs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .dog { margin: 0; }
@@ -335,14 +341,21 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
   .formats { grid-template-columns: 1fr; }
 }
 @media (max-width: 859px) {
-  .nav .btn, .nav .brand-mark { display: none; }
+  /* Menu: „Zapisz się” zostaje, „Kontakt” znika (kontakty są na pierwszym ekranie).
+     Linki mają ≥ 44 px wysokości, żeby łatwo trafić palcem. */
+  .nav { padding-top: 7px; padding-bottom: 7px; }
+  .nav .brand-mark, .nav .nav-hide-m { display: none; }
   .nav-links { gap: 16px; font-size: 14px; }
+  .nav-links a:not(.btn) { padding: 11px 0; }
+  .nav .btn { padding: 0 16px; font-size: 14px; }
   .brand { font-size: 17px; }
 
+  /* Pierwszy ekran: zdjęcie na górze, pod nim nagłówek i przyciski */
   .hero { grid-template-columns: 1fr; min-height: 0; }
-  .hero-copy { padding-top: 104px; padding-bottom: 36px; margin-right: 0; }
-  .hero-media { min-height: 58vh; }
-  .hero-media::after { background: linear-gradient(var(--bg) 0%, rgba(12, 22, 17, .15) 26%, rgba(12, 22, 17, 0) 55%, rgba(12, 22, 17, .55) 100%); }
+  .hero-media { order: -1; margin-top: 58px; height: 46vh; height: clamp(210px, 46svh, 480px); } /* 58px = wysokość menu */
+  .hero-media img { object-position: 50% 12%; }
+  .hero-media::after { background: linear-gradient(rgba(12, 22, 17, 0) 60%, var(--bg) 100%); }
+  .hero-copy { padding-top: 16px; padding-bottom: 36px; margin-right: 0; }
   .contact-list { margin-top: 32px; }
   .contact-list a { grid-template-columns: 22px 1fr; }
   .contact-list .cl-label { display: none; }
@@ -358,12 +371,32 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
   .service-photo img { aspect-ratio: 16 / 10; }
   .xp li { grid-template-columns: 1fr; }
   .finale { height: 78vh; min-height: 520px; }
+  .footer-links { gap: 0 24px; }
+  .footer-links a { padding: 10px 0; }
+  /* Elementy są jeden pod drugim — bez opóźnień w pojawianiu się */
+  .js [data-reveal] { transition-delay: 0s !important; }
 }
 @media (max-width: 560px) {
   .tile { aspect-ratio: 4 / 3; }
+  .service-photo img { aspect-ratio: 4 / 3; }
+  .hero-media { height: 34vh; height: clamp(210px, 33svh, 380px); }
   .form { grid-template-columns: 1fr; }
-  .dogs { grid-template-columns: 1fr; }
-  .hero-actions .btn, .feature-actions .btn, .cta-actions .btn { flex: 1 1 100%; }
+  .hero-actions .btn, .feature-actions .btn, .cta-actions .btn, .form-foot .btn { flex: 1 1 100%; }
+  /* Kontakt: podpis zawsze nad wartością */
+  .contact-big a { flex-direction: column-reverse; align-items: flex-start; gap: 2px; padding: 18px 0; }
+  /* Psy obok siebie, niższe */
+  .dogs { gap: 12px; }
+  .dog figcaption { margin-top: 12px; }
+  .dog figcaption strong { font-size: 20px; }
+  .dog figcaption span { display: block; font-size: 15px; line-height: 1.45; }
+  /* Ściana zdjęć: 2 rzędy zamiast 3 — mniej danych do pobrania */
+  .finale { height: 62vh; height: 62svh; min-height: 460px; }
+  .wall-row:nth-child(3) { display: none; }
+}
+@media (max-width: 480px) {
+  /* Wąski telefon: w menu samo godło, nazwa zostaje dla czytników ekranu */
+  .nav .brand-mark { display: block; height: 38px; }
+  .nav .brand-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
 @media (max-width: 360px) {
   .nav-links { gap: 12px; }
@@ -373,11 +406,11 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
 </head>
 <body>
 <nav class="nav">
-  <a href="index.html" class="brand"><img class="brand-mark" src="logo/logo-mark.webp" width="164" height="120" alt="">Future Frisbee</a>
+  <a href="index.html" class="brand"><img class="brand-mark" src="logo/logo-mark.webp" width="164" height="120" alt=""><span class="brand-name">Future Frisbee</span></a>
   <div class="nav-links">
     <a href="o-mnie.html">O mnie</a>
     <a href="oferta.html" aria-current="page">Oferta</a>
-    <a href="index.html#kontakt">Kontakt</a>
+    <a href="index.html#kontakt" class="nav-hide-m">Kontakt</a>
     <a href="#zapisy" class="btn btn-primary">Zapisz się</a>
   </div>
 </nav>
@@ -421,7 +454,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
 
   <section id="grupowe" class="service">
     <div class="service-photo" data-reveal="up">
-      <img src="photos/img_5799.webp" sizes="(max-width: 859px) 100vw, 34vw" loading="lazy" decoding="async" alt="Trener rzuca dysk, pies leci za nim" width="1206" height="1810" srcset="photos/img_5799-720.webp 720w, photos/img_5799.webp 1206w">
+      <img class="focus-low" src="photos/img_5799.webp" sizes="(max-width: 859px) 100vw, 34vw" loading="lazy" decoding="async" alt="Trener rzuca dysk, pies leci za nim" width="1206" height="1810" srcset="photos/img_5799-720.webp 720w, photos/img_5799.webp 1206w">
     </div>
     <div data-reveal="up" style="transition-delay: 100ms">
       <h2 class="display h2">Zajęcia grupowe</h2>
@@ -437,7 +470,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
 
   <section id="zawodnicy" class="service">
     <div class="service-photo" data-reveal="up">
-      <img src="photos/img_7264.webp" sizes="(max-width: 859px) 100vw, 34vw" loading="lazy" decoding="async" alt="Trener w wyskoku z dyskiem" width="1206" height="1582" srcset="photos/img_7264-720.webp 720w, photos/img_7264.webp 1206w">
+      <img class="focus-top" src="photos/img_7264.webp" sizes="(max-width: 859px) 100vw, 34vw" loading="lazy" decoding="async" alt="Trener w wyskoku z dyskiem" width="1206" height="1582" srcset="photos/img_7264-720.webp 720w, photos/img_7264.webp 1206w">
     </div>
     <div data-reveal="up" style="transition-delay: 100ms">
       <h2 class="display h2">Dla zawodników</h2>

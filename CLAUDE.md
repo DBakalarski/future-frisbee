@@ -42,6 +42,8 @@ cwebp -q 78 -m 6 -metadata none -resize 720 0 in.png -o photos/img_XXXX-720.webp
 - Ceny są tylko w `Oferta.dc.html` (bloki `.price`). Usługę do formularza podpowiada `data-pick="…"` na przycisku albo `oferta.html?temat=…#zapisy` — wartość musi być identyczna z jedną z `<option>` w `select[name=temat]`.
 - Formularz nie ma backendu: składa wiadomość i otwiera program pocztowy (`mailto:`). Adres w `data-mailto` na `<form>`.
 - Kadry: kafelki, zdjęcia w ofercie i „O mnie” są przycinane (`object-fit: cover`, często 4:5, na tablecie 16:9/16:10). Po zmianie zdjęcia sprawdź, czy nie ucina głów. W ścianie zdjęć w finale zdjęcia poziome mają klasę `wide` (3:2).
+- Menu na telefonie (≤ 859 px): bez linku „Kontakt” (klasa `nav-hide-m`), z przyciskiem „Zapisz się”. Do 480 px zamiast nazwy jest samo godło — nazwa siedzi w `<span class="brand-name">` (zostaje dla czytników ekranu). Przy zmianie menu pilnuj tego w trzech plikach.
+- Wersja `.html` ma na `<html>` klasę `static` (dodaje ją build): ukrywa ramki `.todo` w „Doświadczeniu” i wiersze, w których nie ma nic poza nimi. W `.dc.html` są widoczne.
 - Logo jest czarne — na ciemnym tle strony używaj `logo/logo-mark.webp` (z jasnym kołem), nie oryginału. Pierwszy `<img>` z `photos/` (nie logo) dostaje priorytet ładowania.
 - Panel „tweaks” (`accent`, `ksztalt`, `animacje`) działa tylko w narzędziu do projektowania — ustawia `--accent`, `data-shape`, `data-motion` na `<html>`. Wersje `.html` używają wartości domyślnych.
 - Animacje pojawiania się: `data-reveal="up|left"` + `data-delay="ms"`. Bez JS treść jest widoczna. Respektowane jest `prefers-reduced-motion`.
