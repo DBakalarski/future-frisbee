@@ -52,5 +52,4 @@ cwebp -q 78 -m 6 -metadata none -resize 720 0 in.png -o photos/img_XXXX-720.webp
 ## Do zrobienia
 
 - Uzupełnić „Doświadczenie” w `O mnie.dc.html` (pola `.todo`).
-- Opinie na stronie głównej to teksty z pierwotnego projektu — zastąpić prawdziwymi.
 - Gdy będzie domena: `og:image` i `<link rel="canonical">` z pełnym adresem w szablonie `<head>` w `build.mjs`.
