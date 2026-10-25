@@ -138,7 +138,7 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 .band-wrap { position: relative; z-index: 5; overflow: hidden; margin-top: -26px; padding: 16px 0; } /* przycina obrócony pasek po bokach */
 .band { overflow: hidden; padding: 13px 0; margin: 0 -20px; background: var(--green); transform: rotate(-1.2deg); box-shadow: 0 12px 30px rgba(0, 0, 0, .25); }
 .band-track {
-  display: flex; gap: 40px; width: max-content; white-space: nowrap; animation: ffMarquee 30s linear infinite;
+  display: flex; gap: 40px; width: max-content; white-space: nowrap; animation: ffMarquee3 30s linear infinite;
   font-stretch: 125%; font-weight: 800; font-size: clamp(16px, 2vw, 20px); letter-spacing: .03em; text-transform: uppercase;
 }
 .band-track .sep { color: var(--accent); }
@@ -174,8 +174,9 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 .feature { display: grid; grid-template-columns: 1fr 1.25fr; margin-top: 18px; border-radius: var(--r); overflow: hidden; background: var(--green); }
 .feature-copy { padding: clamp(28px, 4vw, 56px); display: flex; flex-direction: column; justify-content: center; }
 .feature-copy .lead { margin-top: 16px; color: rgba(241, 237, 228, .8); }
-.feature-list { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.feature-list li { padding: 7px 14px; border: 1px solid var(--green-line); border-radius: var(--pill); font-size: 15px; font-weight: 600; }
+.feature-list { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.feature-list li { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; }
+.feature-list li::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
 .feature-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .feature-actions .btn-ghost { border-color: var(--green-line); }
 .feature-media { position: relative; min-height: 340px; overflow: hidden; }
@@ -183,8 +184,8 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 
 /* ---------- Opinie ---------- */
 .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 56px); }
-.quote { margin: 0; padding-top: 26px; border-top: 1px solid var(--line); display: flex; flex-direction: column; }
-.quote::before { content: ""; width: 36px; height: 3px; margin-top: -27px; margin-bottom: 24px; background: var(--accent); }
+.quote { margin: 0; display: flex; flex-direction: column; }
+.quote::before { content: "\201D"; height: .5em; margin-bottom: 18px; font-stretch: 125%; font-weight: 800; font-size: 88px; line-height: 1; color: var(--accent); }
 .quote blockquote { margin: 0; font-size: 18px; line-height: 1.65; color: var(--ink); text-wrap: pretty; }
 .quote figcaption { margin-top: 20px; font-size: 15px; color: var(--dim); }
 .quote figcaption strong { color: var(--muted); font-weight: 600; }
@@ -235,8 +236,9 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 .service-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 25%; border-radius: var(--r); }
 .service-photo img.focus-top { object-position: 50% 0; }  /* głowa przy górnej krawędzi */
 .service-photo img.focus-low { object-position: 50% 70%; } /* trener i pies w dolnej części */
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-.chip { padding: 6px 13px; border-radius: var(--pill); background: var(--green); font-size: 14px; font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 16px; }
+.chip { display: inline-flex; align-items: center; gap: 9px; color: var(--muted); font-size: 15px; font-weight: 600; }
+.chip::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
 .prices { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .price { flex: 1 1 190px; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); }
 .price-amount { font-stretch: 125%; font-weight: 800; font-size: clamp(26px, 2.6vw, 34px); letter-spacing: -.02em; line-height: 1; white-space: nowrap; }
@@ -299,12 +301,11 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 html.static .xp .todo, html.static .xp li:has(.v > .todo:only-child) { display: none; }
 .todo { display: inline-block; margin-top: 4px; padding: 2px 10px; border: 1px dashed rgba(241, 237, 228, .35); border-radius: 6px; color: var(--dim); font-size: 15px; }
 .dogs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.dog { margin: 0; }
+.dog { margin: 0; position: relative; }
 .dog img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r); }
 .dog img.focus-left { object-position: 22% 50%; } /* zdjęcie poziome: pysk psa przy lewej krawędzi */
-.dog figcaption { margin-top: 16px; }
-.dog figcaption strong { display: block; font-stretch: 125%; font-weight: 800; font-size: 24px; letter-spacing: -.02em; }
-.dog figcaption span { color: var(--muted); }
+.dog .photo-tag { right: 18px; }
+.dog + .dog .photo-tag { transform: rotate(-3deg); }
 .cta-band { background: var(--green); }
 .cta-band .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; }
 .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -386,9 +387,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
   .contact-big a { flex-direction: column-reverse; align-items: flex-start; gap: 2px; padding: 18px 0; }
   /* Psy obok siebie, niższe */
   .dogs { gap: 12px; }
-  .dog figcaption { margin-top: 12px; }
-  .dog figcaption strong { font-size: 20px; }
-  .dog figcaption span { display: block; font-size: 15px; line-height: 1.45; }
+  .dog .photo-tag { right: 10px; padding: 9px 14px; font-size: 14px; }
   /* Ściana zdjęć: 2 rzędy zamiast 3 — mniej danych do pobrania */
   .finale { height: 62vh; height: 62svh; min-height: 460px; }
   .wall-row:nth-child(3) { display: none; }
