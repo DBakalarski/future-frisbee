@@ -56,7 +56,7 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 14px 34px -14px color-mix(in srgb, var(--accent) 70%, transparent); }
 .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .btn-ghost { border: 1px solid rgba(241, 237, 228, .3); color: var(--ink); }
-.btn-ghost:hover { border-color: var(--ink); }
+.btn-ghost:hover, .feature-actions .btn-ghost:hover, .cta-actions .btn-ghost:hover { border-color: var(--ink); background: rgba(241, 237, 228, .1); transform: translateY(-1px); }
 .btn-dark { background: var(--bg); color: var(--ink); }
 .btn-dark:hover { background: #050a07; transform: translateY(-1px); }
 .text-link { display: inline-block; font-weight: 700; border-bottom: 2px solid var(--accent); padding-bottom: 3px; transition: color .2s; }
