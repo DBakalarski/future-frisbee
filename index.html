@@ -4,13 +4,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Future Frisbee — dog frisbee, dogfitness i behawiorystyka</title>
-<meta name="description" content="Dog frisbee, przygotowanie motoryczne psa (dogfitness) i behawiorystyka. Zajęcia indywidualne i grupowe — na miejscu i online, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe mile widziane.">
+<title>Future Frisbee — dogfrisbee, dogfitness i behawiorystyka</title>
+<meta name="description" content="Dogfrisbee, behawiorystyka i przygotowanie motoryczne do sportów (dogfitness). Zajęcia indywidualne i grupowe — na terenie Poznania i online, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe mile widziane.">
 <meta name="theme-color" content="#0c1611">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
-<meta property="og:title" content="Future Frisbee — dog frisbee, dogfitness i behawiorystyka">
-<meta property="og:description" content="Dog frisbee, przygotowanie motoryczne psa (dogfitness) i behawiorystyka. Zajęcia indywidualne i grupowe — na miejscu i online, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe mile widziane.">
+<meta property="og:title" content="Future Frisbee — dogfrisbee, dogfitness i behawiorystyka">
+<meta property="og:description" content="Dogfrisbee, behawiorystyka i przygotowanie motoryczne do sportów (dogfitness). Zajęcia indywidualne i grupowe — na terenie Poznania i online, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe mile widziane.">
 <link rel="icon" type="image/png" href="logo/favicon.png">
 <link rel="apple-touch-icon" href="logo/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -293,19 +293,19 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 .approach { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.3fr); gap: clamp(28px, 6vw, 96px); align-items: start; }
 .pull { margin: 38px 0 0; padding-top: 26px; border-top: 1px solid var(--line); font-stretch: 125%; font-weight: 800; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.12; letter-spacing: -.02em; max-width: 20em; text-wrap: balance; }
 .xp { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-.xp li { display: grid; grid-template-columns: minmax(150px, 260px) 1fr; gap: 6px 32px; padding: 22px 0; border-bottom: 1px solid var(--line); }
-.xp .k { font-weight: 700; }
-.xp .v { color: var(--muted); }
+.xp li { position: relative; padding: 20px 0 20px 28px; border-bottom: 1px solid var(--line); font-size: 18px; }
+.xp li::before { content: ""; position: absolute; left: 0; top: calc(20px + .75em - 4px); width: 8px; height: 8px; border-radius: 2px; background: var(--accent); }
 /* Wersja do publikacji (build dodaje klasę "static"): bez ramek „Do uzupełnienia”,
    a wiersze bez żadnej treści znikają. W narzędziu do projektowania widać je dalej. */
-html.static .xp .todo, html.static .xp li:has(.v > .todo:only-child) { display: none; }
+html.static .xp .todo, html.static .xp li:has(> .todo:only-child) { display: none; }
 .todo { display: inline-block; margin-top: 4px; padding: 2px 10px; border: 1px dashed rgba(241, 237, 228, .35); border-radius: 6px; color: var(--dim); font-size: 15px; }
-.dogs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.dogs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .dog { margin: 0; position: relative; }
 .dog img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r); }
-.dog img.focus-left { object-position: 22% 50%; } /* zdjęcie poziome: pysk psa przy lewej krawędzi */
+.dog img.focus-hugo { object-position: 38% 50%; } /* zdjęcie poziome: pies w lewej części kadru */
 .dog .photo-tag { right: 18px; }
-.dog + .dog .photo-tag { transform: rotate(-3deg); }
+.dog:nth-child(2) .photo-tag { transform: rotate(-3deg); }
+.dog:nth-child(3) .photo-tag { transform: rotate(2deg); }
 .cta-band { background: var(--green); }
 .cta-band .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; }
 .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -342,6 +342,10 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
   .formats { grid-template-columns: 1fr; }
 }
 @media (max-width: 859px) {
+  /* Psy: dwa pionowe obok siebie, poziome zdjęcie Hugo pod nimi na całą szerokość */
+  .dogs { grid-template-columns: 1fr 1fr; }
+  .dog:nth-child(3) { grid-column: 1 / -1; }
+  .dog:nth-child(3) img { aspect-ratio: 3 / 2; object-position: 50% 50%; }
   /* Menu: „Zapisz się” zostaje, „Kontakt” znika (kontakty są na pierwszym ekranie).
      Linki mają ≥ 44 px wysokości, żeby łatwo trafić palcem. */
   .nav { padding-top: 7px; padding-bottom: 7px; }
@@ -370,7 +374,6 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
   .feature-media { order: -1; min-height: 0; aspect-ratio: 16 / 10; }
   .service { grid-template-columns: 1fr; }
   .service-photo img { aspect-ratio: 16 / 10; }
-  .xp li { grid-template-columns: 1fr; }
   .finale { height: 78vh; min-height: 520px; }
   .footer-links { gap: 0 24px; }
   .footer-links a { padding: 10px 0; }
@@ -417,7 +420,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
 <header id="top" class="hero">
   <div class="hero-copy">
     <h1 class="display h1 rise">Naucz psa latać</h1>
-    <p class="lead rise rise-2">Dog frisbee, przygotowanie motoryczne i behawiorystyka. Zajęcia indywidualne na miejscu albo online, zajęcia grupowe, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe są tu mile widziane.</p>
+    <p class="lead rise rise-2">Dogfrisbee, behawiorystyka, przygotowanie motoryczne do sportów. Zajęcia indywidualne na terenie Poznania albo online, zajęcia grupowe, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe są tu mile widziane.</p>
     <div class="hero-actions rise rise-3">
       <a href="oferta.html#zapisy" class="btn btn-primary">Zapisz się na zajęcia</a>
       <a href="#oferta" class="btn btn-ghost">Zobacz ofertę</a>
@@ -435,9 +438,9 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
 
 <div class="band-wrap" aria-hidden="true"><div class="band">
   <div class="band-track">
-    <span>Dog frisbee</span><span class="sep">✦</span><span>Dogfitness</span><span class="sep">✦</span><span>Behawiorystyka</span><span class="sep">✦</span><span>Warsztaty i seminaria</span><span class="sep">✦</span><span>Na miejscu i online</span><span class="sep">✦</span>
-    <span>Dog frisbee</span><span class="sep">✦</span><span>Dogfitness</span><span class="sep">✦</span><span>Behawiorystyka</span><span class="sep">✦</span><span>Warsztaty i seminaria</span><span class="sep">✦</span><span>Na miejscu i online</span><span class="sep">✦</span>
-    <span>Dog frisbee</span><span class="sep">✦</span><span>Dogfitness</span><span class="sep">✦</span><span>Behawiorystyka</span><span class="sep">✦</span><span>Warsztaty i seminaria</span><span class="sep">✦</span><span>Na miejscu i online</span><span class="sep">✦</span>
+    <span>Dogfrisbee</span><span class="sep">✦</span><span>Dogfitness</span><span class="sep">✦</span><span>Behawiorystyka</span><span class="sep">✦</span><span>Warsztaty i seminaria</span><span class="sep">✦</span><span>Na terenie Poznania i online</span><span class="sep">✦</span>
+    <span>Dogfrisbee</span><span class="sep">✦</span><span>Dogfitness</span><span class="sep">✦</span><span>Behawiorystyka</span><span class="sep">✦</span><span>Warsztaty i seminaria</span><span class="sep">✦</span><span>Na terenie Poznania i online</span><span class="sep">✦</span>
+    <span>Dogfrisbee</span><span class="sep">✦</span><span>Dogfitness</span><span class="sep">✦</span><span>Behawiorystyka</span><span class="sep">✦</span><span>Warsztaty i seminaria</span><span class="sep">✦</span><span>Na terenie Poznania i online</span><span class="sep">✦</span>
   </div>
 </div></div>
 
@@ -452,7 +455,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
         <p>Lubię budować od podstaw: solidną komunikację, wzajemne zrozumienie i relację, na której później można oprzeć coraz bardziej wymagającą pracę.</p>
         <p>Szczególnie bliskie są mi psy, którym trudno odnaleźć się w codziennym świecie — nerwowe, pobudliwe, reaktywne, agresywne albo lękliwe. Nie walczę z ich energią. Uczę psa i przewodnika, jak ją zrozumieć i ukierunkować.</p>
       </div>
-      <p class="note">Twój pies ma trudności? Tym bardziej zapraszam.</p>
+      <p class="note">Twój pies ma problemy behawioralne? Tym bardziej zapraszam.</p>
       <a href="o-mnie.html" class="text-link">Więcej o mnie i moim doświadczeniu</a>
     </div>
   </div>
@@ -469,7 +472,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
         <img src="photos/img_7081.webp" sizes="(max-width: 859px) 100vw, 33vw" loading="lazy" decoding="async" alt="Pies łapie dysk tuż przy trenerze" width="1206" height="1548" srcset="photos/img_7081-720.webp 720w, photos/img_7081.webp 1206w">
         <div class="tile-body">
           <h3 class="display h3">Zajęcia indywidualne</h3>
-          <p>Dog frisbee, dogfitness i behawiorystyka. Na miejscu albo online.</p>
+          <p>Dogfrisbee, dogfitness i behawiorystyka. Na terenie Poznania albo online.</p>
           <span class="text-link">Ceny i szczegóły</span>
         </div>
       </a>
@@ -485,7 +488,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
         <img src="photos/img_7224.webp" sizes="(max-width: 859px) 100vw, 33vw" loading="lazy" decoding="async" alt="Trener w wyskoku rzuca frisbee" width="1206" height="1809" srcset="photos/img_7224-720.webp 720w, photos/img_7224.webp 1206w">
         <div class="tile-body">
           <h3 class="display h3">Dla zawodników</h3>
-          <p>Programy treningowe i treningi rzutowe — dla człowieka, nie dla psa.</p>
+          <p>Programy treningowe i treningi rzutowe — dla człowieka, bez psa.</p>
           <span class="text-link">Ceny i szczegóły</span>
         </div>
       </a>
@@ -505,7 +508,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
         </div>
       </div>
       <div class="feature-media">
-        <img src="photos/img_1989.webp" sizes="(max-width: 859px) 100vw, 55vw" loading="lazy" decoding="async" alt="Pies robi salto za dyskiem na zawodach dog frisbee" width="1600" height="1067" srcset="photos/img_1989-720.webp 720w, photos/img_1989.webp 1600w">
+        <img src="photos/img_1989.webp" sizes="(max-width: 859px) 100vw, 55vw" loading="lazy" decoding="async" alt="Pies robi salto za dyskiem na zawodach dogfrisbee" width="1600" height="1067" srcset="photos/img_1989-720.webp 720w, photos/img_1989.webp 1600w">
       </div>
     </div>
   </div>
@@ -533,7 +536,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
   <div class="wrap contact-grid">
     <div data-reveal="up">
       <h2 class="display h2">Napisz albo zadzwoń</h2>
-      <p class="lead">Powiedz, ile lat ma Twój pies, z czym przychodzicie i czy wolicie zajęcia na miejscu, czy online. Odezwę się z propozycją terminu.</p>
+      <p class="lead">Powiedz, ile lat ma Twój pies, z czym przychodzicie i czy wolicie zajęcia na terenie Poznania, czy online. Odezwę się z propozycją terminu.</p>
       <a href="oferta.html#zapisy" class="btn btn-primary">Wypełnij formularz zapisu</a>
     </div>
     <ul class="contact-big" data-reveal="up" style="transition-delay: 120ms">

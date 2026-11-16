@@ -17,7 +17,7 @@ const PAGES = [
     src: 'Future Frisbee.dc.html',
     out: 'index.html',
     description:
-      'Dog frisbee, przygotowanie motoryczne psa (dogfitness) i behawiorystyka. Zajęcia indywidualne i grupowe — na miejscu i online, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe mile widziane.',
+      'Dogfrisbee, behawiorystyka i przygotowanie motoryczne do sportów (dogfitness). Zajęcia indywidualne i grupowe — na terenie Poznania i online, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe mile widziane.',
   },
   {
     src: 'Oferta.dc.html',
@@ -29,7 +29,7 @@ const PAGES = [
     src: 'O mnie.dc.html',
     out: 'o-mnie.html',
     description:
-      'Trener dog frisbee i zawodnik freestyle z border collie Fofonem i Brewką. Podejście do pracy z psami pobudliwymi, reaktywnymi i lękliwymi oraz doświadczenie.',
+      'Trener dogfrisbee i zawodnik freestyle z border collie Followem, Bravem i Hugo. Podejście do pracy z psami pobudliwymi, reaktywnymi i lękliwymi oraz doświadczenie.',
   },
 ];
 
