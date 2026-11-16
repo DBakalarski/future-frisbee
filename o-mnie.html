@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>O mnie — Future Frisbee</title>
-<meta name="description" content="Trener dog frisbee i zawodnik freestyle z border collie Fofonem i Brewką. Podejście do pracy z psami pobudliwymi, reaktywnymi i lękliwymi oraz doświadczenie.">
+<meta name="description" content="Trener dogfrisbee i zawodnik freestyle z border collie Followem, Bravem i Hugo. Podejście do pracy z psami pobudliwymi, reaktywnymi i lękliwymi oraz doświadczenie.">
 <meta name="theme-color" content="#0c1611">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:title" content="O mnie — Future Frisbee">
-<meta property="og:description" content="Trener dog frisbee i zawodnik freestyle z border collie Fofonem i Brewką. Podejście do pracy z psami pobudliwymi, reaktywnymi i lękliwymi oraz doświadczenie.">
+<meta property="og:description" content="Trener dogfrisbee i zawodnik freestyle z border collie Followem, Bravem i Hugo. Podejście do pracy z psami pobudliwymi, reaktywnymi i lękliwymi oraz doświadczenie.">
 <link rel="icon" type="image/png" href="logo/favicon.png">
 <link rel="apple-touch-icon" href="logo/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -300,12 +300,13 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
    a wiersze bez żadnej treści znikają. W narzędziu do projektowania widać je dalej. */
 html.static .xp .todo, html.static .xp li:has(.v > .todo:only-child) { display: none; }
 .todo { display: inline-block; margin-top: 4px; padding: 2px 10px; border: 1px dashed rgba(241, 237, 228, .35); border-radius: 6px; color: var(--dim); font-size: 15px; }
-.dogs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.dogs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .dog { margin: 0; position: relative; }
 .dog img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r); }
-.dog img.focus-left { object-position: 22% 50%; } /* zdjęcie poziome: pysk psa przy lewej krawędzi */
+.dog img.focus-hugo { object-position: 38% 50%; } /* zdjęcie poziome: pies w lewej części kadru */
 .dog .photo-tag { right: 18px; }
-.dog + .dog .photo-tag { transform: rotate(-3deg); }
+.dog:nth-child(2) .photo-tag { transform: rotate(-3deg); }
+.dog:nth-child(3) .photo-tag { transform: rotate(2deg); }
 .cta-band { background: var(--green); }
 .cta-band .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; }
 .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -342,6 +343,10 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
   .formats { grid-template-columns: 1fr; }
 }
 @media (max-width: 859px) {
+  /* Psy: dwa pionowe obok siebie, poziome zdjęcie Hugo pod nimi na całą szerokość */
+  .dogs { grid-template-columns: 1fr 1fr; }
+  .dog:nth-child(3) { grid-column: 1 / -1; }
+  .dog:nth-child(3) img { aspect-ratio: 3 / 2; object-position: 50% 50%; }
   /* Menu: „Zapisz się” zostaje, „Kontakt” znika (kontakty są na pierwszym ekranie).
      Linki mają ≥ 44 px wysokości, żeby łatwo trafić palcem. */
   .nav { padding-top: 7px; padding-bottom: 7px; }
@@ -417,7 +422,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
 <header class="wrap bio-hero">
   <div>
     <h1 class="display h1 rise">O mnie</h1>
-    <p class="lead rise rise-2">Jestem trenerem dog frisbee i zawodnikiem freestyle. Na co dzień trenuję i startuję z dwoma border collie — doświadczonym Fofonem i młodą Brewką. Prowadzę zajęcia z dog frisbee, przygotowania motorycznego psów i behawiorystyki.</p>
+    <p class="lead rise rise-2">Jestem trenerem dogfrisbee i zawodnikiem freestyle. Na co dzień trenuję i startuję z dwoma border collie — doświadczonym Followem i młodym Bravem. Prowadzę zajęcia z dogfrisbee, przygotowania motorycznego psów i behawiorystyki.</p>
   </div>
   <img class="rise rise-3" src="photos/img_7326.webp" sizes="(max-width: 859px) 100vw, 45vw" alt="Trener stoi na rękach, obok siedzi border collie" width="1206" height="1809" srcset="photos/img_7326-720.webp 720w, photos/img_7326.webp 1206w" fetchpriority="high">
 </header>
@@ -442,10 +447,12 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
       <h2 class="display h2">Doświadczenie</h2>
     </div>
     <ul class="xp" data-reveal="up" style="transition-delay: 100ms">
-      <li><span class="k">Zajęcia i warsztaty</span><span class="v"><span class="todo">Do uzupełnienia: od kiedy prowadzisz zajęcia, gdzie były warsztaty i seminaria</span></span></li>
-      <li><span class="k">Kursy i certyfikaty</span><span class="v"><span class="todo">Do uzupełnienia: kursy z behawiorystyki, dogfitnessu, trenerskie</span></span></li>
-      <li><span class="k">Zawody</span><span class="v">Starty we freestyle z Fofonem i Brewką.<br><span class="todo">Do uzupełnienia: zawody i wyniki</span></span></li>
-      <li><span class="k">Pokazy</span><span class="v">Pokazy dog frisbee w całej Polsce, m.in. na Górze Żar.</span></li>
+      <li><span class="k">Staż</span><span class="v">Ponad 12 lat doświadczenia.</span></li>
+      <li><span class="k">Zawody</span><span class="v">Starty w międzynarodowych zawodach.</span></li>
+      <li><span class="k">Seminaria</span><span class="v">Dziesiątki odbytych seminariów z topowymi zawodnikami.</span></li>
+      <li><span class="k">Kursy</span><span class="v">Kurs psiego fitnessu i analizy motorycznej ze studium fizjoterapii zwierząt.</span></li>
+      <li><span class="k">Wykształcenie</span><span class="v">Ukończone studia fizjoterapeutyczne na AWF w Poznaniu.</span></li>
+      <li><span class="k">Pokazy</span><span class="v">Pokazy dogfrisbee w całej Polsce, m.in. na Górze Żar.</span></li>
     </ul>
   </div>
 </section>
@@ -453,17 +460,21 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
 <section class="section">
   <div class="wrap">
     <div class="section-head" data-reveal="up">
-      <h2 class="display h2">Fofon i Brewka</h2>
-      <p class="lead">Dwa border collie, z którymi trenuję, startuję i pokazuję, jak może wyglądać współpraca psa z człowiekiem.</p>
+      <h2 class="display h2">Follow, Brave i Hugo</h2>
+      <p class="lead">Trzy border collie, z którymi trenuję, startuję i pokazuję, jak może wyglądać współpraca psa z człowiekiem.</p>
     </div>
     <div class="dogs">
       <figure class="dog" data-reveal="up">
-        <img src="photos/img_6875.webp" sizes="45vw" loading="lazy" decoding="async" alt="Fofon z dyskiem w pysku" width="1206" height="1590" srcset="photos/img_6875-720.webp 720w, photos/img_6875.webp 1206w">
-        <figcaption class="photo-tag">Fofon</figcaption>
+        <img src="photos/img_6875.webp" sizes="(max-width: 859px) 50vw, 30vw" loading="lazy" decoding="async" alt="Follow z dyskiem w pysku" width="1206" height="1590" srcset="photos/img_6875-720.webp 720w, photos/img_6875.webp 1206w">
+        <figcaption class="photo-tag">Follow</figcaption>
       </figure>
       <figure class="dog" data-reveal="up" style="transition-delay: 120ms">
-        <img class="focus-left" src="photos/img_8478.webp" sizes="45vw" loading="lazy" decoding="async" alt="Brewka łapie dysk" width="1600" height="1067" srcset="photos/img_8478-720.webp 720w, photos/img_8478.webp 1600w">
-        <figcaption class="photo-tag">Brewka</figcaption>
+        <img src="photos/img_2293.webp" sizes="(max-width: 859px) 50vw, 30vw" loading="lazy" decoding="async" alt="Brave na rękach trenera o zachodzie słońca" width="1206" height="1608" srcset="photos/img_2293-720.webp 720w, photos/img_2293.webp 1206w">
+        <figcaption class="photo-tag">Brave</figcaption>
+      </figure>
+      <figure class="dog" data-reveal="up" style="transition-delay: 240ms">
+        <img class="focus-hugo" src="photos/img_7792.webp" sizes="(max-width: 859px) 100vw, 30vw" loading="lazy" decoding="async" alt="Hugo biegnie po trawie na zawodach" width="1600" height="1067" srcset="photos/img_7792-720.webp 720w, photos/img_7792.webp 1600w">
+        <figcaption class="photo-tag">Hugo</figcaption>
       </figure>
     </div>
   </div>
