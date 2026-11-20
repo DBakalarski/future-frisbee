@@ -17,7 +17,7 @@ const PAGES = [
     src: 'Future Frisbee.dc.html',
     out: 'index.html',
     description:
-      'Dogfrisbee, behawiorystyka i przygotowanie motoryczne do sportów (dogfitness). Zajęcia indywidualne i grupowe — na terenie Poznania i online, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe mile widziane.',
+      'Dogfrisbee, behawiorystyka i przygotowanie motoryczne do sportów (dogfitness). Zajęcia indywidualne i grupowe - na terenie Poznania i online, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe mile widziane.',
   },
   {
     src: 'Oferta.dc.html',
@@ -84,14 +84,14 @@ function build({ src: srcFile, out: outFile, description }) {
     .map(read);
 
   if (/<sc-(else|for)\b|<dc-import|<x-import/.test(body)) {
-    throw new Error(`${srcFile}: szablon używa sc-else/sc-for/importów — build.mjs tego nie obsługuje.`);
+    throw new Error(`${srcFile}: szablon używa sc-else/sc-for/importów - build.mjs tego nie obsługuje.`);
   }
 
   // sc-if → div z klasą chowaną media query
   const extraCss = [];
   body = body.replace(/<sc-if value="\{\{\s*(\w+)\s*\}\}"[^>]*>/g, (_, name) => {
     const flag = FLAGS[name];
-    if (!flag) throw new Error(`${srcFile}: nieznana flaga {{ ${name} }} w sc-if — dopisz ją do FLAGS`);
+    if (!flag) throw new Error(`${srcFile}: nieznana flaga {{ ${name} }} w sc-if - dopisz ją do FLAGS`);
     const cls = `if-${name}`;
     extraCss.push(`.${cls}{display:${flag[0] ? 'contents' : 'none'}}`);
     extraCss.push(`@media ${MOBILE}{.${cls}{display:${flag[1] ? 'contents' : 'none'}}}`);
@@ -103,7 +103,7 @@ function build({ src: srcFile, out: outFile, description }) {
   const usedVars = new Set();
   body = body.replace(/\{\{\s*(\w+)\s*\}\}/g, (m, name) => {
     if (/Ref$/.test(name)) return m; // refy usuwamy niżej razem z atrybutem
-    if (!VARS[name]) throw new Error(`${srcFile}: nieznane pole {{ ${name} }} — dopisz je do VARS`);
+    if (!VARS[name]) throw new Error(`${srcFile}: nieznane pole {{ ${name} }} - dopisz je do VARS`);
     usedVars.add(name);
     return `var(--${name})`;
   });
@@ -180,7 +180,7 @@ function build({ src: srcFile, out: outFile, description }) {
   const css = [...localCss, inlineCss, varsCss, extraCss.join('\n'), hoverCss].map(s => s.trim()).filter(Boolean).join('\n');
 
   const html = `<!DOCTYPE html>
-<!-- WYGENEROWANE przez scripts/build.mjs z "${srcFile}" — nie edytuj ręcznie. -->
+<!-- WYGENEROWANE przez scripts/build.mjs z "${srcFile}" - nie edytuj ręcznie. -->
 <html lang="pl">
 <head>
 <meta charset="utf-8">

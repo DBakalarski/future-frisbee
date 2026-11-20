@@ -48,7 +48,7 @@
         var temat = val('temat') || 'Pytanie';
         var body = [
           'Czego dotyczy: ' + temat,
-          'Forma zajęć: ' + (val('forma') || '—'),
+          'Forma zajęć: ' + (val('forma') || '-'),
           'Imię: ' + val('imie'),
           'Kontakt: ' + val('kontakt'),
           '',
@@ -59,7 +59,7 @@
           '?subject=' + encodeURIComponent('Zgłoszenie ze strony: ' + temat) +
           '&body=' + encodeURIComponent(body);
         var status = form.querySelector('.form-status');
-        if (status) status.textContent = 'Otwieram Twoją pocztę z gotową wiadomością — wystarczy ją wysłać. ' +
+        if (status) status.textContent = 'Otwieram Twoją pocztę z gotową wiadomością - wystarczy ją wysłać. ' +
           'Jeśli nic się nie otworzyło, napisz bezpośrednio na ' + to + ' albo zadzwoń.';
       });
     });
