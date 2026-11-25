@@ -57,9 +57,19 @@ const tests = {
     assert.equal(cal.safeLink('https://x.pl'), 'https://x.pl');
     assert.equal(cal.safeLink('mailto:a@b.pl'), 'mailto:a@b.pl');
   },
+  'safeLink: adres bez https:// dostaje https://'() {
+    assert.equal(cal.safeLink('google.com'), 'https://google.com');
+    assert.equal(cal.safeLink('test.pl'), 'https://test.pl');
+    assert.equal(cal.safeLink('www.facebook.com/futurefrisbee'), 'https://www.facebook.com/futurefrisbee');
+    assert.equal(cal.safeLink('oferta.html#zapisy'), 'oferta.html#zapisy');
+    assert.equal(cal.safeLink('/oferta.html'), '/oferta.html');
+    assert.equal(cal.safeLink('cokolwiek'), null);
+    assert.equal(cal.safeLink('vbscript:x'), null);
+  },
   'url: zapytanie do Sanity z dzisiejszą datą'() {
     const u = cal.url('2026-11-25');
-    assert.ok(u.startsWith('https://xdpvlpcu.apicdn.sanity.io/v2026-01-01/data/query/production?query='), u);
+    // api (bez CDN): CDN Sanity potrafi podawać dane sprzed kilku minut
+    assert.ok(u.startsWith('https://xdpvlpcu.api.sanity.io/v2026-01-01/data/query/production?query='), u);
     assert.ok(u.includes('%24today=%222026-11-25%22'), u);
   },
 };
@@ -84,6 +94,24 @@ tests['bez fetch: tekst zastępczy, bez wyjątku'] = function () {
   box.window = box;
   vm.runInNewContext(code, box);
   assert.equal(attrs['data-cal-state'], 'empty');
+};
+
+// Przeglądarka nie może zapamiętać odpowiedzi - każde wejście pyta Sanity od nowa.
+tests['fetch bez pamięci podręcznej przeglądarki'] = function () {
+  const calls = [];
+  const root = { _a: {}, getAttribute(k) { return k in this._a ? this._a[k] : null; }, setAttribute(k, v) { this._a[k] = v; }, style: {}, classList: { add() {} } };
+  const box = {
+    document: {
+      querySelectorAll: (s) => (s === '[data-cal]' || s === '[data-reveal]' ? [root] : []),
+      querySelector: () => null, documentElement: { classList: { add() {} } }, addEventListener() {},
+    },
+    location: { search: '' }, URLSearchParams, setTimeout,
+    fetch: (url, opts) => { calls.push(opts); return new Promise(() => {}); },
+  };
+  box.window = box;
+  vm.runInNewContext(code, box);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0] && calls[0].cache, 'no-store');
 };
 
 let failed = 0;
