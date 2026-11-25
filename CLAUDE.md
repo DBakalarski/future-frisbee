@@ -10,7 +10,8 @@ Strona po polsku: strona główna (scrollowana) + dwie podstrony. Zajęcia z dog
 | `Oferta.dc.html` | **Źródło** podstrony z cenami i formularzem → `oferta.html` | Tak |
 | `O mnie.dc.html` | **Źródło** podstrony „O mnie” → `o-mnie.html` | Tak |
 | `styles.css` | Wspólny wygląd wszystkich stron. Kolory marki to zmienne na górze (`--green`, `--accent` itd.) | Tak |
-| `site.js` | Wspólny skrypt: pojawianie się sekcji, formularz → mailto, podpowiadanie usługi | Tak |
+| `site.js` | Wspólny skrypt: pojawianie się sekcji, formularz → mailto, podpowiadanie usługi, kalendarz wydarzeń (`window.ffCal`) | Tak |
+| `scripts/test-calendar.mjs` | Testy logiki kalendarza (Node, bez zależności) | Tak |
 | `support.js` | Runtime `dc-runtime` (wygenerowany). | **Nie** |
 | `index.html`, `oferta.html`, `o-mnie.html` | **Wersje do publikacji**, generowane z `.dc.html`. Czysty HTML/CSS + mały skrypt, bez Reacta. | **Nie** - zawsze przebuduj |
 | `scripts/build.mjs` | Generator stron (Node, zero zależności). Lista stron w `PAGES`. | Tak |
@@ -24,6 +25,8 @@ Pliki `.dc.html` to format narzędzia do projektowania (`<x-dc>`): szablon + kla
 ```bash
 node scripts/build.mjs                          # .dc.html → .html (uruchamiaj po KAŻDEJ zmianie w .dc.html, styles.css, site.js)
 python3 -m http.server 8765 --bind 127.0.0.1    # podgląd: http://127.0.0.1:8765/ (index) i /Future%20Frisbee.dc.html
+                                                # port 8765 bywa zajęty przez Anki (AnkiConnect) - wtedy 8766
+node scripts/test-calendar.mjs                  # testy logiki kalendarza
 ```
 
 Nowe zdjęcie (z PNG/JPG) - zawsze oba rozmiary, oryginału nie commituj:
@@ -49,6 +52,14 @@ cwebp -q 78 -m 6 -metadata none -resize 720 0 in.png -o photos/img_XXXX-720.webp
 - Animacje pojawiania się: `data-reveal="up|left"` + `data-delay="ms"`. Bez JS treść jest widoczna. Respektowane jest `prefers-reduced-motion`.
 - Weryfikacja zmian wizualnych: porównaj zrzuty `.html` i `.dc.html` w 1440 px i 390 px (Playwright) - wysokość strony powinna być identyczna, a `scrollX` po `scrollTo(300, 0)` równy 0.
 
+## Kalendarz wydarzeń (Sanity)
+
+- Sekcja `#kalendarz` na stronie głównej. Wydarzenia dodaje trener w panelu **https://future-frisbee.sanity.studio** (projekt Sanity `xdpvlpcu`, zbiór `production`). Kod panelu: `~/Developer/future-frisbee-studio` (osobne repo, npm; `npx sanity deploy` po zmianie schematu).
+- `site.js` pobiera wydarzenia w przeglądarce z `xdpvlpcu.apicdn.sanity.io` - nowe wydarzenie widać bez przebudowy strony. Kategorie (`warsztaty`, `seminarium`, `pokaz`, `grupowe`, `zawody`) są w schemacie panelu i w `CATEGORIES` w `site.js` - zmieniaj w obu.
+- Sanity wpuszcza tylko adresy z listy CORS (`npx sanity cors list` w folderze panelu). Teraz: `127.0.0.1:8765`, `127.0.0.1:8766`, `localhost:8765`, `localhost:3333`.
+- Bez wydarzeń, bez JS albo przy błędzie pobierania widać tekst „Nowe terminy wkrótce” z przyciskiem „Zapytaj o termin”.
+
 ## Do zrobienia
 
 - Gdy będzie domena: `og:image` i `<link rel="canonical">` z pełnym adresem w szablonie `<head>` w `build.mjs`.
+- Gdy będzie domena: dopisz ją do CORS Sanity (`npx sanity cors add https://domena --no-credentials` w `~/Developer/future-frisbee-studio`), inaczej kalendarz pokaże tylko tekst zastępczy.

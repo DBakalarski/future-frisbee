@@ -90,6 +90,7 @@
 
   function renderCalendar(root) {
     if (root.getAttribute('data-cal-state')) return;
+    if (!window.fetch) { root.setAttribute('data-cal-state', 'empty'); return; }
     root.setAttribute('data-cal-state', 'loading');
     var today = todayIso();
     fetch(ffCal.url(today))

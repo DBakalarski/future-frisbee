@@ -64,6 +64,28 @@ const tests = {
   },
 };
 
+// Przeglądarka bez fetch: kalendarz przechodzi w tekst zastępczy, reszta skryptu działa dalej.
+tests['bez fetch: tekst zastępczy, bez wyjątku'] = function () {
+  const attrs = {};
+  const root = {
+    getAttribute: (k) => (k in attrs ? attrs[k] : null),
+    setAttribute: (k, v) => { attrs[k] = v; },
+    style: {}, classList: { add() {} },
+  };
+  const box = {
+    document: {
+      querySelectorAll: (s) => (s === '[data-cal]' || s === '[data-reveal]' ? [root] : []),
+      querySelector: () => null,
+      documentElement: { classList: { add() {} } },
+      addEventListener() {},
+    },
+    location: { search: '' }, URLSearchParams, setTimeout,
+  };
+  box.window = box;
+  vm.runInNewContext(code, box);
+  assert.equal(attrs['data-cal-state'], 'empty');
+};
+
 let failed = 0;
 for (const [name, fn] of Object.entries(tests)) {
   try { fn(); console.log('ok   ' + name); }
