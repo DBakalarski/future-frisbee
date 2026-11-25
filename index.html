@@ -312,6 +312,8 @@ html.static .xp .todo, html.static .xp li:has(> .todo:only-child) { display: non
 .cta-actions .btn-ghost { border-color: var(--green-line); }
 
 /* ---------- Kalendarz wydarzeń (rysuje go site.js z danych Sanity) ---------- */
+/* Kalendarz i Opinie mają to samo tło - bez dolnego marginesu, żeby odstęp nie był podwójny */
+#kalendarz { padding-bottom: 0; }
 .cal-fallback { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; }
 .js [data-cal]:not([data-cal-state]) .cal-fallback { visibility: hidden; } /* trwa pobieranie */
 [data-cal-state="ready"] .cal-fallback { display: none; }
