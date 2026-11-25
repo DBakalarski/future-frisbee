@@ -55,7 +55,7 @@ cwebp -q 78 -m 6 -metadata none -resize 720 0 in.png -o photos/img_XXXX-720.webp
 ## Kalendarz wydarzeń (Sanity)
 
 - Sekcja `#kalendarz` na stronie głównej. Wydarzenia dodaje trener w panelu **https://future-frisbee.sanity.studio** (projekt Sanity `xdpvlpcu`, zbiór `production`). Kod panelu: `~/Developer/future-frisbee-studio` (osobne repo, npm; `npx sanity deploy` po zmianie schematu).
-- `site.js` pobiera wydarzenia w przeglądarce z `xdpvlpcu.apicdn.sanity.io` - nowe wydarzenie widać bez przebudowy strony. Kategorie (`warsztaty`, `seminarium`, `pokaz`, `grupowe`, `zawody`) są w schemacie panelu i w `CATEGORIES` w `site.js` - zmieniaj w obu.
+- `site.js` pobiera wydarzenia w przeglądarce z `xdpvlpcu.api.sanity.io` (celowo nie `apicdn` - CDN Sanity podawał dane sprzed kilku minut) z `cache: no-store` - zmiana w panelu jest widoczna po odświeżeniu strony, bez przebudowy. Link bez `https://` (np. `test.pl`) strona uzupełnia sama. Kategorie (`warsztaty`, `seminarium`, `pokaz`, `grupowe`, `zawody`) są w schemacie panelu i w `CATEGORIES` w `site.js` - zmieniaj w obu.
 - Sanity wpuszcza tylko adresy z listy CORS (`npx sanity cors list` w folderze panelu). Teraz: `127.0.0.1:8765`, `127.0.0.1:8766`, `localhost:8765`, `localhost:3333`.
 - Bez wydarzeń, bez JS albo przy błędzie pobierania widać tekst „Nowe terminy wkrótce” z przyciskiem „Zapytaj o termin”.
 

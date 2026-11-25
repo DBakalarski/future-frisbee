@@ -312,6 +312,8 @@ html.static .xp .todo, html.static .xp li:has(> .todo:only-child) { display: non
 .cta-actions .btn-ghost { border-color: var(--green-line); }
 
 /* ---------- Kalendarz wydarzeń (rysuje go site.js z danych Sanity) ---------- */
+/* Kalendarz i Opinie mają to samo tło - bez dolnego marginesu, żeby odstęp nie był podwójny */
+#kalendarz { padding-bottom: 0; }
 .cal-fallback { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; }
 .js [data-cal]:not([data-cal-state]) .cal-fallback { visibility: hidden; } /* trwa pobieranie */
 [data-cal-state="ready"] .cal-fallback { display: none; }
@@ -561,7 +563,8 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
 (function () {
   // ---------- Kalendarz wydarzeń: dane z Sanity (panel: future-frisbee.sanity.studio) ----------
   // Daty liczone na napisach RRRR-MM-DD, bez stref czasowych.
-  var SANITY = 'https://xdpvlpcu.apicdn.sanity.io/v2026-01-01/data/query/production';
+  // api.sanity.io, nie apicdn: CDN Sanity potrafi przez kilka minut podawać stare dane.
+  var SANITY = 'https://xdpvlpcu.api.sanity.io/v2026-01-01/data/query/production';
   var QUERY = '*[_type=="event" && (date >= $today || endDate >= $today)] | order(date asc)[0...20]' +
     '{_id,title,date,endDate,shortDescription,link,category}';
   var MONTHS = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień',
@@ -604,9 +607,14 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
     monthLabel: function (y, m0) { return MONTHS[m0] + ' ' + y; },
     dayLabel: function (s) { var p = parts(s); return p[2] + ' ' + MONTHS_GEN[p[1]] + ' ' + p[0]; },
     shortMonth: function (s) { return MONTHS_SHORT[parts(s)[1]]; },
+    // Bezpieczny link: http(s)/mailto/tel, ścieżka na stronie albo sam adres (test.pl → https://test.pl).
     safeLink: function (u) {
       u = String(u || '').trim();
-      return /^(https?:|mailto:|tel:)/i.test(u) ? u : null;
+      if (/^(https?:|mailto:|tel:)/i.test(u)) return u;
+      if (/^[a-z][a-z0-9+.-]*:/i.test(u)) return null;
+      if (/^(\/|#|\.\/)/.test(u) || /^[\w-]+\.html\b/i.test(u)) return u;
+      if (/^[^\s\/?#]+\.[a-z]{2,}([\/?#]\S*)?$/i.test(u)) return 'https://' + u;
+      return null;
     },
     url: function (today) {
       return SANITY + '?query=' + encodeURIComponent(QUERY) +
@@ -651,7 +659,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
     if (!window.fetch) { root.setAttribute('data-cal-state', 'empty'); return; }
     root.setAttribute('data-cal-state', 'loading');
     var today = todayIso();
-    fetch(ffCal.url(today))
+    fetch(ffCal.url(today), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (data) {
         var events = (data.result || []).filter(function (e) { return e && e.title && /^\d{4}-\d\d-\d\d$/.test(e.date); });
