@@ -278,6 +278,9 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 .form-done .btn { margin-top: 8px; border-color: var(--green-line); }
 
 /* ---------- O mnie: podstrona ---------- */
+/* Strona 404 */
+.err-hero { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 22px; padding-top: clamp(120px, 16vh, 170px); padding-bottom: clamp(60px, 10vh, 120px); }
+.err-code { margin: 0; font-size: 15px; font-weight: 800; letter-spacing: .2em; color: var(--accent); }
 .bio-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: center; padding-top: clamp(120px, 16vh, 170px); }
 .bio-hero .lead { margin-top: 26px; }
 .bio-hero img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 10%; border-radius: var(--r); } /* 3:4 - mieszczą się stopy i pies */

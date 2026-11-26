@@ -9,12 +9,15 @@ Strona po polsku: strona główna (scrollowana) + dwie podstrony. Zajęcia z dog
 | `Future Frisbee.dc.html` | **Źródło** strony głównej → `index.html` | Tak |
 | `Oferta.dc.html` | **Źródło** podstrony z cenami i formularzem → `oferta.html` | Tak |
 | `O mnie.dc.html` | **Źródło** podstrony „O mnie” → `o-mnie.html` | Tak |
+| `404.dc.html` | **Źródło** strony błędu → `404.html` (noindex, `<base href="/">`, poza mapą strony) | Tak |
+| `server/.htaccess`, `server/robots.txt` | Pliki serwera Apache, kopiowane do `dist/`: https + bez www (301), `/index.html` → `/`, strona 404, kompresja, pamięć podręczna, nagłówki bezpieczeństwa | Tak |
 | `styles.css` | Wspólny wygląd wszystkich stron. Kolory marki to zmienne na górze (`--green`, `--accent` itd.) | Tak |
 | `site.js` | Wspólny skrypt: pojawianie się sekcji, formularz → Formspree, podpowiadanie usługi, kalendarz wydarzeń (`window.ffCal`) | Tak |
 | `scripts/test-calendar.mjs`, `scripts/test-form.mjs` | Testy kalendarza i wysyłki formularza (Node, bez zależności) | Tak |
 | `support.js` | Runtime `dc-runtime` (wygenerowany). | **Nie** |
-| `index.html`, `oferta.html`, `o-mnie.html` | **Wersje do publikacji**, generowane z `.dc.html`. Czysty HTML/CSS + mały skrypt, bez Reacta. | **Nie** - zawsze przebuduj |
-| `scripts/build.mjs` | Generator stron (Node, zero zależności). Lista stron w `PAGES`. | Tak |
+| `index.html`, `oferta.html`, `o-mnie.html`, `404.html` | **Wersje do publikacji**, generowane z `.dc.html`. Czysty HTML/CSS + mały skrypt, bez Reacta. | **Nie** - zawsze przebuduj |
+| `scripts/build.mjs` | Generator stron (Node, zero zależności). Lista stron w `PAGES`. Na końcu składa `dist/` - paczkę na serwer. | Tak |
+| `dist/` | **Paczka do wgrania na serwer** (generowana, w `.gitignore`) | **Nie** |
 | `photos/*.webp` | Zdjęcia: `img_XXXX.webp` (pionowe 1206 px, poziome 1600 px szerokości) + `img_XXXX-720.webp` (telefony). | - |
 | `logo/` | `logo-future.png` - oryginał logo (czarny napis, przezroczyste tło). `logo-mark.webp` - godło bez napisu na jasnym kole (menu, stopka). `favicon.png`, `apple-touch-icon.png` - ikonki. | - |
 
@@ -23,12 +26,15 @@ Pliki `.dc.html` to format narzędzia do projektowania (`<x-dc>`): szablon + kla
 ## Komendy
 
 ```bash
-node scripts/build.mjs                          # .dc.html → .html (uruchamiaj po KAŻDEJ zmianie w .dc.html, styles.css, site.js)
+node scripts/build.mjs                          # .dc.html → .html + paczka dist/ (uruchamiaj po KAŻDEJ zmianie w .dc.html, styles.css, site.js)
 python3 -m http.server 8765 --bind 127.0.0.1    # podgląd: http://127.0.0.1:8765/ (index) i /Future%20Frisbee.dc.html
                                                 # port 8765 bywa zajęty przez Anki (AnkiConnect) - wtedy 8766
 node scripts/test-calendar.mjs                  # testy logiki kalendarza
 node scripts/test-form.mjs                      # testy wysyłki formularza (Formspree)
+node scripts/test-dist.mjs                      # test paczki dist/ (komplet plików, nic zbędnego)
 ```
+
+**Publikacja:** `node scripts/build.mjs`, potem wgraj **zawartość** folderu `dist/` do głównego katalogu serwera (https://futurefrisbee.pl). `dist/` to 4 strony, `.htaccess`, `robots.txt`, `sitemap.xml` (generowana, data buildu) + tylko te zdjęcia i logo, do których strony się odwołują; jest w `.gitignore`, budowany od zera przy każdym buildzie. Pliki zaczynające się od kropki (`.htaccess`) bywają ukryte w Finderze i programach FTP - włącz pokazywanie ukrytych plików.
 
 Nowe zdjęcie (z PNG/JPG) - zawsze oba rozmiary, oryginału nie commituj:
 
@@ -53,14 +59,21 @@ cwebp -q 78 -m 6 -metadata none -resize 720 0 in.png -o photos/img_XXXX-720.webp
 - Animacje pojawiania się: `data-reveal="up|left"` + `data-delay="ms"`. Bez JS treść jest widoczna. Respektowane jest `prefers-reduced-motion`.
 - Weryfikacja zmian wizualnych: porównaj zrzuty `.html` i `.dc.html` w 1440 px i 390 px (Playwright) - wysokość strony powinna być identyczna, a `scrollX` po `scrollTo(300, 0)` równy 0.
 
+## SEO
+
+- Adres główny: **https://futurefrisbee.pl** (bez www) - stała `SITE` w `build.mjs`, a także `server/.htaccess` i `server/robots.txt`.
+- Build dopisuje w `<head>`: `canonical`, `og:url`, `og:image` (`photos/og-image.jpg`, 1200×630, wycięty z `img_1989`), `twitter:card`; na stronie głównej dane strukturalne `LocalBusiness` (JSON-LD, funkcja `seoHead`). Nowa podstrona: dodaj `path` w `PAGES` - trafi do canonical i `sitemap.xml`.
+- W wygenerowanych stronach `href="index.html…"` zamienia się na `href="./…"` (bez przekierowania z `/index.html`).
+- `.htaccess` sprawdzony na lokalnym Apache (macOS `httpd`). HSTS jest zakomentowany - włącz, gdy https działa na pewno.
+
 ## Kalendarz wydarzeń (Sanity)
 
 - Sekcja `#kalendarz` na stronie głównej. Wydarzenia dodaje trener w panelu **https://future-frisbee.sanity.studio** (projekt Sanity `xdpvlpcu`, zbiór `production`). Kod panelu: `~/Developer/future-frisbee-studio` (osobne repo, npm; `npx sanity deploy` po zmianie schematu).
 - `site.js` pobiera wydarzenia w przeglądarce z `xdpvlpcu.api.sanity.io` (celowo nie `apicdn` - CDN Sanity podawał dane sprzed kilku minut) z `cache: no-store` - zmiana w panelu jest widoczna po odświeżeniu strony, bez przebudowy. Link bez `https://` (np. `test.pl`) strona uzupełnia sama. Kategorie (`warsztaty`, `seminarium`, `pokaz`, `grupowe`, `zawody`) są w schemacie panelu i w `CATEGORIES` w `site.js` - zmieniaj w obu.
-- Sanity wpuszcza tylko adresy z listy CORS (`npx sanity cors list` w folderze panelu). Teraz: `127.0.0.1:8765`, `127.0.0.1:8766`, `localhost:8765`, `localhost:3333`.
+- Sanity wpuszcza tylko adresy z listy CORS (`npx sanity cors list` w folderze panelu). Teraz: `https://futurefrisbee.pl`, `https://www.futurefrisbee.pl`, `127.0.0.1:8765`, `127.0.0.1:8766`, `localhost:8765`, `localhost:3333`. Nowa domena/subdomena → `npx sanity cors add https://… --no-credentials` w folderze panelu.
 - Bez wydarzeń, bez JS albo przy błędzie pobierania widać tekst „Nowe terminy wkrótce” z przyciskiem „Zapytaj o termin”.
 
 ## Do zrobienia
 
-- Gdy będzie domena: `og:image` i `<link rel="canonical">` z pełnym adresem w szablonie `<head>` w `build.mjs`.
-- Gdy będzie domena: dopisz ją do CORS Sanity (`npx sanity cors add https://domena --no-credentials` w `~/Developer/future-frisbee-studio`), inaczej kalendarz pokaże tylko tekst zastępczy.
+- Po publikacji: Google Search Console - dodać domenę i zgłosić `https://futurefrisbee.pl/sitemap.xml`.
+- HSTS w `server/.htaccess` - odkomentować, gdy https działa stabilnie.
