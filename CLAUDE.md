@@ -10,8 +10,8 @@ Strona po polsku: strona główna (scrollowana) + dwie podstrony. Zajęcia z dog
 | `Oferta.dc.html` | **Źródło** podstrony z cenami i formularzem → `oferta.html` | Tak |
 | `O mnie.dc.html` | **Źródło** podstrony „O mnie” → `o-mnie.html` | Tak |
 | `styles.css` | Wspólny wygląd wszystkich stron. Kolory marki to zmienne na górze (`--green`, `--accent` itd.) | Tak |
-| `site.js` | Wspólny skrypt: pojawianie się sekcji, formularz → mailto, podpowiadanie usługi, kalendarz wydarzeń (`window.ffCal`) | Tak |
-| `scripts/test-calendar.mjs` | Testy logiki kalendarza (Node, bez zależności) | Tak |
+| `site.js` | Wspólny skrypt: pojawianie się sekcji, formularz → Formspree, podpowiadanie usługi, kalendarz wydarzeń (`window.ffCal`) | Tak |
+| `scripts/test-calendar.mjs`, `scripts/test-form.mjs` | Testy kalendarza i wysyłki formularza (Node, bez zależności) | Tak |
 | `support.js` | Runtime `dc-runtime` (wygenerowany). | **Nie** |
 | `index.html`, `oferta.html`, `o-mnie.html` | **Wersje do publikacji**, generowane z `.dc.html`. Czysty HTML/CSS + mały skrypt, bez Reacta. | **Nie** - zawsze przebuduj |
 | `scripts/build.mjs` | Generator stron (Node, zero zależności). Lista stron w `PAGES`. | Tak |
@@ -27,6 +27,7 @@ node scripts/build.mjs                          # .dc.html → .html (uruchamiaj
 python3 -m http.server 8765 --bind 127.0.0.1    # podgląd: http://127.0.0.1:8765/ (index) i /Future%20Frisbee.dc.html
                                                 # port 8765 bywa zajęty przez Anki (AnkiConnect) - wtedy 8766
 node scripts/test-calendar.mjs                  # testy logiki kalendarza
+node scripts/test-form.mjs                      # testy wysyłki formularza (Formspree)
 ```
 
 Nowe zdjęcie (z PNG/JPG) - zawsze oba rozmiary, oryginału nie commituj:
@@ -43,7 +44,7 @@ cwebp -q 78 -m 6 -metadata none -resize 720 0 in.png -o photos/img_XXXX-720.webp
 - Nowa podstrona: nowy `Nazwa.dc.html` (skopiuj `O mnie.dc.html`) + wpis w `PAGES` w `build.mjs` (plik wyjściowy i `description`).
 - `<img>` ze zdjęciem z `photos/`: build dopisuje `width`/`height` i `srcset` (720 + pełne). Podaj w źródle `sizes` (szerokość wyświetlania), inaczej będzie `100vw`. Pierwszy `<img>` na stronie dostaje `fetchpriority="high"` i preload.
 - Ceny są tylko w `Oferta.dc.html` (bloki `.price`). Usługę do formularza podpowiada `data-pick="…"` na przycisku albo `oferta.html?temat=…#zapisy` - wartość musi być identyczna z jedną z `<option>` w `select[name=temat]`.
-- Formularz nie ma backendu: składa wiadomość i otwiera program pocztowy (`mailto:`). Adres w `data-mailto` na `<form>`.
+- Formularz wysyła zgłoszenie przez **Formspree**: adres w `action` na `<form>` (produkcyjny: `https://formspree.io/f/xyewoqyk`), wysyłka w tle (`fetch`, `Accept: application/json`), temat maila „Zgłoszenie ze strony: <usługa>”, `_replyto` gdy kontakt to e-mail, pułapka na boty `_gotcha` (`.hp`). Bez JS - zwykły POST i strona podziękowania Formspree. `data-mail` i `data-phone` na `<form>` to dane do komunikatu o błędzie. Po wysłaniu formularz dostaje `data-state="sent"` - pola znikają, widać panel `.form-done` („Dziękuję!” + „Wyślij kolejną wiadomość”); błąd → `data-state="error"` (ramka komunikatu). Darmowy plan: 50 zgłoszeń/mies. (ponad limit nie przychodzą mailem).
 - Kadry: kafelki, zdjęcia w ofercie i „O mnie” są przycinane (`object-fit: cover`, często 4:5, na tablecie 16:9/16:10). Po zmianie zdjęcia sprawdź, czy nie ucina głów. W ścianie zdjęć w finale zdjęcia poziome mają klasę `wide` (3:2).
 - Menu na telefonie (≤ 859 px): bez linku „Kontakt” (klasa `nav-hide-m`), z przyciskiem „Zapisz się”. Do 480 px zamiast nazwy jest samo godło - nazwa siedzi w `<span class="brand-name">` (zostaje dla czytników ekranu). Przy zmianie menu pilnuj tego w trzech plikach.
 - Wersja `.html` ma na `<html>` klasę `static` (dodaje ją build): ukrywa ramki `.todo` w „Doświadczeniu” i wiersze, w których nie ma nic poza nimi. W `.dc.html` są widoczne.

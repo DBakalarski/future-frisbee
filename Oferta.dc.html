@@ -115,14 +115,16 @@
   <section id="zapisy" data-screen-label="Zapisy" class="section signup">
     <div data-reveal="up">
       <h2 class="display h2">Zapisy i pytania</h2>
-      <p class="lead">Wypełnij formularz - otworzy się Twoja poczta z gotową wiadomością. Możesz też od razu zadzwonić albo napisać.</p>
+      <p class="lead">Wypełnij formularz - wiadomość trafi prosto do mnie. Możesz też od razu zadzwonić albo napisać.</p>
       <ul class="contact-list">
         <li><a href="tel:+48795479709"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span class="cl-label">Telefon</span><span class="cl-value">795 479 709</span></a></li>
         <li><a href="mailto:future.frisbee.ms@gmail.com"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="cl-label">E-mail</span><span class="cl-value">future.frisbee.ms@gmail.com</span></a></li>
         <li><a href="https://instagram.com/future_frisbee" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="dot" cx="17.5" cy="6.5" r="1"/></svg><span class="cl-label">Instagram</span><span class="cl-value">@future_frisbee</span></a></li>
       </ul>
     </div>
-    <form class="form" data-mailto="future.frisbee.ms@gmail.com" data-reveal="up" data-delay="100">
+    <form class="form" action="https://formspree.io/f/xyewoqyk" method="POST" data-mail="future.frisbee.ms@gmail.com" data-phone="795 479 709" data-reveal="up" data-delay="100">
+      <input type="hidden" name="_subject" value="Zgłoszenie ze strony">
+      <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="field full">
         <label for="f-temat">Czego dotyczy</label>
         <select id="f-temat" name="temat" required="required">
@@ -157,10 +159,16 @@
         <textarea id="f-wiadomosc" name="wiadomosc" rows="5" placeholder="Rasa, wiek, co już umiecie, nad czym chcecie pracować. Przy warsztatach: miejsce, termin i liczba osób."></textarea>
       </div>
       <div class="form-foot">
-        <button type="submit" class="btn btn-primary">Wyślij e-mailem</button>
-        <p class="form-note">Wiadomość wyślesz ze swojej skrzynki - nic nie trafia do żadnej bazy.</p>
+        <button type="submit" class="btn btn-primary">Wyślij</button>
+        <p class="form-note">Wiadomość przechodzi przez Formspree i trafia prosto na moją skrzynkę.</p>
       </div>
       <p class="form-status" role="status" aria-live="polite"></p>
+      <div class="form-done" tabindex="-1">
+        <svg class="form-done-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+        <h3 class="display">Dziękuję!</h3>
+        <p class="lead">Wiadomość dotarła. Odezwę się najszybciej, jak mogę.</p>
+        <button type="button" class="btn btn-ghost" data-form-again>Wyślij kolejną wiadomość</button>
+      </div>
     </form>
   </section>
 </main>
