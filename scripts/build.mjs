@@ -12,24 +12,40 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
+// Adres strony (bez www) - canonical, og:url, sitemap.xml. Zmieniasz też w server/.htaccess i server/robots.txt.
+const SITE = 'https://futurefrisbee.pl';
+const OG_IMAGE = { src: 'photos/og-image.jpg', width: 1200, height: 630,
+  alt: 'Border collie w skoku za dyskiem, trener na trawie - zawody dogfrisbee' };
+
 const PAGES = [
   {
     src: 'Future Frisbee.dc.html',
     out: 'index.html',
+    path: '/',
+    jsonLd: true,
     description:
       'Dogfrisbee, behawiorystyka i przygotowanie motoryczne do sportów (dogfitness). Zajęcia indywidualne i grupowe - na terenie Poznania i online, warsztaty i seminaria. Psy pobudliwe, reaktywne i lękliwe mile widziane.',
   },
   {
     src: 'Oferta.dc.html',
     out: 'oferta.html',
+    path: '/oferta.html',
     description:
       'Ceny i opis zajęć: indywidualne (150 zł, pakiet 6 spotkań 750 zł), grupowe (600 zł / 6 spotkań), programy treningowe dla zawodników, warsztaty, seminaria i pokazy.',
   },
   {
     src: 'O mnie.dc.html',
     out: 'o-mnie.html',
+    path: '/o-mnie.html',
     description:
       'Trener dogfrisbee i zawodnik freestyle z border collie Followem, Bravem i Hugo. Podejście do pracy z psami pobudliwymi, reaktywnymi i lękliwymi oraz doświadczenie.',
+  },
+  {
+    // Strona błędu (ErrorDocument w server/.htaccess): poza mapą strony, noindex, linki od korzenia.
+    src: '404.dc.html',
+    out: '404.html',
+    noindex: true,
+    description: 'Nie ma takiej strony. Wróć na stronę główną Future Frisbee albo zajrzyj do oferty.',
   },
 ];
 
@@ -52,6 +68,38 @@ const between = (s, open, close) => {
   return s.slice(a + open.length, b);
 };
 
+// SEO w <head>: canonical, og:url, obrazek do udostępniania, dane strukturalne.
+function seoHead({ title, description, path, noindex, jsonLd }) {
+  const img = `${SITE}/${OG_IMAGE.src}`;
+  const tags = [
+    '<meta property="og:site_name" content="Future Frisbee">',
+    `<meta property="og:image" content="${img}">`,
+    `<meta property="og:image:width" content="${OG_IMAGE.width}">`,
+    `<meta property="og:image:height" content="${OG_IMAGE.height}">`,
+    `<meta property="og:image:alt" content="${OG_IMAGE.alt}">`,
+    '<meta name="twitter:card" content="summary_large_image">',
+  ];
+  if (noindex) tags.unshift('<meta name="robots" content="noindex">');
+  else tags.unshift(`<link rel="canonical" href="${SITE}${path}">`, `<meta property="og:url" content="${SITE}${path}">`);
+  if (jsonLd) {
+    const data = {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      name: 'Future Frisbee',
+      description,
+      url: `${SITE}/`,
+      image: img,
+      logo: `${SITE}/logo/apple-touch-icon.png`,
+      telephone: '+48795479709',
+      email: 'future.frisbee.ms@gmail.com',
+      areaServed: { '@type': 'City', name: 'Poznań' },
+      sameAs: ['https://instagram.com/future_frisbee'],
+    };
+    tags.push(`<script type="application/ld+json">${JSON.stringify(data)}</script>`);
+  }
+  return tags.join('\n');
+}
+
 // Wymiary WebP z nagłówka pliku (bez zależności).
 function webpSize(file) {
   const b = readFileSync(join(ROOT, file));
@@ -65,7 +113,7 @@ function webpSize(file) {
   throw new Error(`Nie umiem odczytać wymiarów ${file}`);
 }
 
-function build({ src: srcFile, out: outFile, description }) {
+function build({ src: srcFile, out: outFile, description, path, noindex, jsonLd }) {
   const src = read(srcFile);
   let body = between(src, '<x-dc>', '</x-dc>');
   const helmet = between(body, '<helmet>', '</helmet>');
@@ -183,7 +231,7 @@ function build({ src: srcFile, out: outFile, description }) {
 <!-- WYGENEROWANE przez scripts/build.mjs z "${srcFile}" - nie edytuj ręcznie. -->
 <html lang="pl">
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8">${noindex ? '\n<base href="/">' : ''}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title}</title>
 <meta name="description" content="${description}">
@@ -192,6 +240,7 @@ function build({ src: srcFile, out: outFile, description }) {
 <meta property="og:locale" content="pl_PL">
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${description}">
+${seoHead({ title, description, path, noindex, jsonLd })}
 <link rel="icon" type="image/png" href="logo/favicon.png">
 <link rel="apple-touch-icon" href="logo/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -210,7 +259,8 @@ ${localJs.map(js => `<script>\n${js.trim()}\n</script>`).join('\n')}
 </html>
 `;
 
-  writeFileSync(join(ROOT, outFile), html);
+  // index.html → ./ (serwer przekierowuje /index.html na /, linki mają od razu trafiać pod właściwy adres)
+  writeFileSync(join(ROOT, outFile), html.replace(/href="index\.html/g, 'href="./'));
   console.log(`${outFile}: ${(Buffer.byteLength(html) / 1024).toFixed(1)} KB`);
 }
 
@@ -234,6 +284,16 @@ function pack() {
     copyFileSync(from, join(DIST, f));
     bytes += readFileSync(from).length;
   }
+  // Pliki serwera (.htaccess, robots.txt) i mapa strony (bez stron noindex)
+  for (const f of ['.htaccess', 'robots.txt']) {
+    copyFileSync(join(ROOT, 'server', f), join(DIST, f));
+    files.add(f);
+  }
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = PAGES.filter(p => !p.noindex).map(p => `  <url><loc>${SITE}${p.path}</loc><lastmod>${today}</lastmod></url>`);
+  writeFileSync(join(DIST, 'sitemap.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
+  files.add('sitemap.xml');
   console.log(`dist/: ${files.size} plików, ${(bytes / 1024 / 1024).toFixed(1)} MB - wgraj zawartość folderu na serwer`);
 }
 pack();

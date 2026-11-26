@@ -9,11 +9,13 @@ Strona po polsku: strona główna (scrollowana) + dwie podstrony. Zajęcia z dog
 | `Future Frisbee.dc.html` | **Źródło** strony głównej → `index.html` | Tak |
 | `Oferta.dc.html` | **Źródło** podstrony z cenami i formularzem → `oferta.html` | Tak |
 | `O mnie.dc.html` | **Źródło** podstrony „O mnie” → `o-mnie.html` | Tak |
+| `404.dc.html` | **Źródło** strony błędu → `404.html` (noindex, `<base href="/">`, poza mapą strony) | Tak |
+| `server/.htaccess`, `server/robots.txt` | Pliki serwera Apache, kopiowane do `dist/`: https + bez www (301), `/index.html` → `/`, strona 404, kompresja, pamięć podręczna, nagłówki bezpieczeństwa | Tak |
 | `styles.css` | Wspólny wygląd wszystkich stron. Kolory marki to zmienne na górze (`--green`, `--accent` itd.) | Tak |
 | `site.js` | Wspólny skrypt: pojawianie się sekcji, formularz → Formspree, podpowiadanie usługi, kalendarz wydarzeń (`window.ffCal`) | Tak |
 | `scripts/test-calendar.mjs`, `scripts/test-form.mjs` | Testy kalendarza i wysyłki formularza (Node, bez zależności) | Tak |
 | `support.js` | Runtime `dc-runtime` (wygenerowany). | **Nie** |
-| `index.html`, `oferta.html`, `o-mnie.html` | **Wersje do publikacji**, generowane z `.dc.html`. Czysty HTML/CSS + mały skrypt, bez Reacta. | **Nie** - zawsze przebuduj |
+| `index.html`, `oferta.html`, `o-mnie.html`, `404.html` | **Wersje do publikacji**, generowane z `.dc.html`. Czysty HTML/CSS + mały skrypt, bez Reacta. | **Nie** - zawsze przebuduj |
 | `scripts/build.mjs` | Generator stron (Node, zero zależności). Lista stron w `PAGES`. Na końcu składa `dist/` - paczkę na serwer. | Tak |
 | `dist/` | **Paczka do wgrania na serwer** (generowana, w `.gitignore`) | **Nie** |
 | `photos/*.webp` | Zdjęcia: `img_XXXX.webp` (pionowe 1206 px, poziome 1600 px szerokości) + `img_XXXX-720.webp` (telefony). | - |
@@ -32,7 +34,7 @@ node scripts/test-form.mjs                      # testy wysyłki formularza (For
 node scripts/test-dist.mjs                      # test paczki dist/ (komplet plików, nic zbędnego)
 ```
 
-**Publikacja:** `node scripts/build.mjs`, potem wgraj **zawartość** folderu `dist/` do głównego katalogu serwera (https://futurefrisbee.pl). `dist/` to 3 strony + tylko te zdjęcia i logo, do których się odwołują; jest w `.gitignore`, budowany od zera przy każdym buildzie.
+**Publikacja:** `node scripts/build.mjs`, potem wgraj **zawartość** folderu `dist/` do głównego katalogu serwera (https://futurefrisbee.pl). `dist/` to 4 strony, `.htaccess`, `robots.txt`, `sitemap.xml` (generowana, data buildu) + tylko te zdjęcia i logo, do których strony się odwołują; jest w `.gitignore`, budowany od zera przy każdym buildzie. Pliki zaczynające się od kropki (`.htaccess`) bywają ukryte w Finderze i programach FTP - włącz pokazywanie ukrytych plików.
 
 Nowe zdjęcie (z PNG/JPG) - zawsze oba rozmiary, oryginału nie commituj:
 
@@ -57,6 +59,13 @@ cwebp -q 78 -m 6 -metadata none -resize 720 0 in.png -o photos/img_XXXX-720.webp
 - Animacje pojawiania się: `data-reveal="up|left"` + `data-delay="ms"`. Bez JS treść jest widoczna. Respektowane jest `prefers-reduced-motion`.
 - Weryfikacja zmian wizualnych: porównaj zrzuty `.html` i `.dc.html` w 1440 px i 390 px (Playwright) - wysokość strony powinna być identyczna, a `scrollX` po `scrollTo(300, 0)` równy 0.
 
+## SEO
+
+- Adres główny: **https://futurefrisbee.pl** (bez www) - stała `SITE` w `build.mjs`, a także `server/.htaccess` i `server/robots.txt`.
+- Build dopisuje w `<head>`: `canonical`, `og:url`, `og:image` (`photos/og-image.jpg`, 1200×630, wycięty z `img_1989`), `twitter:card`; na stronie głównej dane strukturalne `LocalBusiness` (JSON-LD, funkcja `seoHead`). Nowa podstrona: dodaj `path` w `PAGES` - trafi do canonical i `sitemap.xml`.
+- W wygenerowanych stronach `href="index.html…"` zamienia się na `href="./…"` (bez przekierowania z `/index.html`).
+- `.htaccess` sprawdzony na lokalnym Apache (macOS `httpd`). HSTS jest zakomentowany - włącz, gdy https działa na pewno.
+
 ## Kalendarz wydarzeń (Sanity)
 
 - Sekcja `#kalendarz` na stronie głównej. Wydarzenia dodaje trener w panelu **https://future-frisbee.sanity.studio** (projekt Sanity `xdpvlpcu`, zbiór `production`). Kod panelu: `~/Developer/future-frisbee-studio` (osobne repo, npm; `npx sanity deploy` po zmianie schematu).
@@ -66,4 +75,5 @@ cwebp -q 78 -m 6 -metadata none -resize 720 0 in.png -o photos/img_XXXX-720.webp
 
 ## Do zrobienia
 
-- `og:image` i `<link rel="canonical">` z pełnym adresem (https://futurefrisbee.pl) w szablonie `<head>` w `build.mjs`.
+- Po publikacji: Google Search Console - dodać domenę i zgłosić `https://futurefrisbee.pl/sitemap.xml`.
+- HSTS w `server/.htaccess` - odkomentować, gdy https działa stabilnie.

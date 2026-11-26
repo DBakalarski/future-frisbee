@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Nie ma takiej strony - Future Frisbee</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="site.js"></script>
+</helmet>
+
+<nav class="nav">
+  <a href="index.html" class="brand"><img class="brand-mark" src="logo/logo-mark.webp" width="164" height="120" alt=""><span class="brand-name">Future Frisbee</span></a>
+  <div class="nav-links">
+    <a href="o-mnie.html">O mnie</a>
+    <a href="oferta.html">Oferta</a>
+    <a href="index.html#kontakt" class="nav-hide-m">Kontakt</a>
+    <a href="oferta.html#zapisy" class="btn btn-primary">Zapisz się</a>
+  </div>
+</nav>
+
+<header class="wrap err-hero">
+  <p class="err-code rise" aria-hidden="true">404</p>
+  <h1 class="display h1 rise rise-2">Nie ma takiej strony</h1>
+  <p class="lead rise rise-3">Ten adres nie istnieje albo strona została przeniesiona. Dysk poleciał gdzie indziej - wróć na start albo zajrzyj do oferty.</p>
+  <div class="cta-actions rise rise-4">
+    <a href="index.html" class="btn btn-primary">Strona główna</a>
+    <a href="oferta.html" class="btn btn-ghost">Oferta i ceny</a>
+  </div>
+</header>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <a href="index.html" class="brand"><img class="brand-mark" src="logo/logo-mark.webp" width="164" height="120" alt="">Future Frisbee</a>
+    <nav class="footer-links">
+      <a href="o-mnie.html">O mnie</a>
+      <a href="oferta.html">Oferta</a>
+      <a href="tel:+48795479709">795 479 709</a>
+      <a href="mailto:future.frisbee.ms@gmail.com">future.frisbee.ms@gmail.com</a>
+      <a href="https://instagram.com/future_frisbee" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() { if (window.ffInit) window.ffInit(); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
