@@ -262,6 +262,8 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
 .form-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 4px; }
 .form-note { margin: 0; flex: 1 1 220px; font-size: 14px; line-height: 1.5; color: var(--dim); }
+.form .hp { display: none; } /* pułapka na boty (Formspree _gotcha) - wypełniają ją tylko boty */
+.form button:disabled { opacity: .6; cursor: progress; transform: none; }
 .form-status { grid-column: 1 / -1; margin: 0; font-size: 15px; color: var(--ink); }
 .form-status:empty { display: none; }
 
