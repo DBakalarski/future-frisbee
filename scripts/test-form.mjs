@@ -14,14 +14,21 @@ class FakeFormData {
 
 // Formularz-atrapa + uruchomienie site.js; zwraca handler „submit” i stan.
 function setup(fields, fetchImpl) {
-  const status = { textContent: '' };
+  const status = { textContent: '', className: 'form-status' };
   const btn = { disabled: false, textContent: 'Wyślij' };
+  const done = { focused: false, focus() { this.focused = true; }, scrollIntoView() {} };
+  const again = { addEventListener(t, f) { if (t === 'click') this._click = f; } };
+  const first = { focused: false, focus() { this.focused = true; } };
+  const attrs = {};
   const form = {
     action: ACTION,
     _fields: Object.assign({ temat: 'Zajęcia grupowe', imie: 'Ala', kontakt: 'ala@kot.pl', _subject: 'Zgłoszenie ze strony' }, fields),
-    getAttribute: (k) => ({ 'data-mail': 'future.frisbee.ms@gmail.com', 'data-phone': '795 479 709' })[k] ?? null,
+    getAttribute: (k) => (k in attrs ? attrs[k] : ({ 'data-mail': 'future.frisbee.ms@gmail.com', 'data-phone': '795 479 709' })[k] ?? null),
+    setAttribute: (k, v) => { attrs[k] = v; },
+    removeAttribute: (k) => { delete attrs[k]; },
+    style: {}, offsetHeight: 640,
     get elements() { const e = {}; for (const [k, v] of Object.entries(this._fields)) e[k] = { value: v }; return e; },
-    querySelector: (s) => (s === '.form-status' ? status : s === 'button[type="submit"]' ? btn : null),
+    querySelector: (s) => ({ '.form-status': status, 'button[type="submit"]': btn, '.form-done': done, '[data-form-again]': again, '.field select, .field input, .field textarea': first })[s] || null,
     reset() { this._reset = true; },
     addEventListener(t, f) { if (t === 'submit') this._submit = f; },
   };
@@ -41,7 +48,7 @@ function setup(fields, fetchImpl) {
   vm.runInNewContext(code, box);
   assert.ok(form._submit, 'brak obsługi submit');
   const submit = () => form._submit({ preventDefault() {} });
-  return { form, status, btn, calls, submit };
+  return { form, status, btn, calls, submit, attrs, done, again, first };
 }
 
 const ok = () => Promise.resolve({ ok: true, json: () => Promise.resolve({ ok: true }) });
@@ -56,7 +63,9 @@ const tests = {
     const body = t.calls[0].opts.body;
     assert.equal(body.get('_subject'), 'Zgłoszenie ze strony: Zajęcia grupowe');
     assert.equal(body.get('_replyto'), 'ala@kot.pl');
-    assert.match(t.status.textContent, /Dziękuję/);
+    assert.equal(t.attrs['data-state'], 'sent');
+    assert.equal(t.done.focused, true);
+    assert.equal(t.status.textContent, '');
     assert.equal(t.form._reset, true);
     assert.equal(t.btn.disabled, false);
   },
@@ -80,11 +89,20 @@ const tests = {
     assert.match(t.status.textContent, /795 479 709/);
     assert.match(t.status.textContent, /future\.frisbee\.ms@gmail\.com/);
     assert.notEqual(t.form._reset, true);
+    assert.equal(t.attrs['data-state'], 'error');
   },
   async 'błąd sieci: telefon i e-mail'() {
     const t = setup({}, () => Promise.reject(new Error('offline')));
     await t.submit();
     assert.match(t.status.textContent, /795 479 709/);
+  },
+  async '„Wyślij kolejną”: wraca do pustego formularza'() {
+    const t = setup({}, ok);
+    await t.submit();
+    t.again._click();
+    assert.equal(t.attrs['data-state'], undefined);
+    assert.equal(t.first.focused, true);
+    assert.equal(t.form.style.minHeight, '');
   },
   async 'bez fetch: zwykła wysyłka formularza (bez preventDefault)'() {
     const t = setup({}, ok);
