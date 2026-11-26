@@ -274,6 +274,7 @@
         var status = form.querySelector('.form-status');
         var btn = form.querySelector('button[type="submit"]');
         var say = function (t) { if (status) status.textContent = t; };
+        form.removeAttribute('data-state');
         var data = new FormData(form);
         data.set('_subject', 'Zgłoszenie ze strony: ' + (val('temat') || 'Pytanie'));
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('kontakt'))) data.set('_replyto', val('kontakt'));
@@ -282,14 +283,27 @@
         return fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
           .then(function (r) { if (!r.ok) throw new Error(r.status); })
           .then(function () {
+            // Ekran podziękowania w tej samej ramce (bez skoku wysokości)
             form.reset();
-            say('Dziękuję! Wiadomość dotarła - odezwę się najszybciej, jak mogę.');
+            say('');
+            form.style.minHeight = form.offsetHeight + 'px';
+            form.setAttribute('data-state', 'sent');
+            var done = form.querySelector('.form-done');
+            if (done) { done.focus(); if (done.scrollIntoView) done.scrollIntoView({ block: 'nearest' }); }
           })
           .catch(function () {
+            form.setAttribute('data-state', 'error');
             say('Nie udało się wysłać wiadomości. Zadzwoń: ' + form.getAttribute('data-phone') +
               ' albo napisz: ' + form.getAttribute('data-mail') + '.');
           })
           .then(function () { if (btn) btn.disabled = false; });
+      });
+      var again = form.querySelector('[data-form-again]');
+      if (again) again.addEventListener('click', function () {
+        form.removeAttribute('data-state');
+        form.style.minHeight = '';
+        var first = form.querySelector('.field select, .field input, .field textarea');
+        if (first) first.focus();
       });
     });
   }

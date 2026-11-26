@@ -76,7 +76,7 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 }
 .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 14px 34px -14px color-mix(in srgb, var(--accent) 70%, transparent); }
 .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
-.btn-ghost { border: 1px solid rgba(241, 237, 228, .3); color: var(--ink); }
+.btn-ghost { background: none; border: 1px solid rgba(241, 237, 228, .3); color: var(--ink); }
 .btn-ghost:hover, .feature-actions .btn-ghost:hover, .cta-actions .btn-ghost:hover { border-color: var(--ink); background: rgba(241, 237, 228, .1); transform: translateY(-1px); }
 .btn-dark { background: var(--bg); color: var(--ink); }
 .btn-dark:hover { background: #050a07; transform: translateY(-1px); }
@@ -287,6 +287,16 @@ a[href^="tel:"] { white-space: nowrap; } /* numer telefonu nie łamie się na dw
 .form button:disabled { opacity: .6; cursor: progress; transform: none; }
 .form-status { grid-column: 1 / -1; margin: 0; font-size: 15px; color: var(--ink); }
 .form-status:empty { display: none; }
+.form[data-state="error"] .form-status { padding: 14px 16px; border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); border-radius: var(--r-sm); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+/* Po wysłaniu: zamiast pól ekran podziękowania w tej samej ramce */
+.form-done { display: none; }
+.form[data-state="sent"] { display: flex; align-items: center; justify-content: center; }
+.form[data-state="sent"] > :not(.form-done) { display: none; }
+.form[data-state="sent"] .form-done { display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 26rem; padding: 24px 0; text-align: center; outline: none; }
+.form-done-ico { width: 64px; height: 64px; padding: 16px; border-radius: 50%; background: color-mix(in srgb, var(--accent) 16%, transparent); fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.form-done h3 { font-size: clamp(34px, 4vw, 48px); }
+.form-done .lead { margin: 0; }
+.form-done .btn { margin-top: 8px; border-color: var(--green-line); }
 
 /* ---------- O mnie: podstrona ---------- */
 .bio-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: center; padding-top: clamp(120px, 16vh, 170px); }
@@ -836,6 +846,7 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
         var status = form.querySelector('.form-status');
         var btn = form.querySelector('button[type="submit"]');
         var say = function (t) { if (status) status.textContent = t; };
+        form.removeAttribute('data-state');
         var data = new FormData(form);
         data.set('_subject', 'Zgłoszenie ze strony: ' + (val('temat') || 'Pytanie'));
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('kontakt'))) data.set('_replyto', val('kontakt'));
@@ -844,14 +855,27 @@ html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !
         return fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
           .then(function (r) { if (!r.ok) throw new Error(r.status); })
           .then(function () {
+            // Ekran podziękowania w tej samej ramce (bez skoku wysokości)
             form.reset();
-            say('Dziękuję! Wiadomość dotarła - odezwę się najszybciej, jak mogę.');
+            say('');
+            form.style.minHeight = form.offsetHeight + 'px';
+            form.setAttribute('data-state', 'sent');
+            var done = form.querySelector('.form-done');
+            if (done) { done.focus(); if (done.scrollIntoView) done.scrollIntoView({ block: 'nearest' }); }
           })
           .catch(function () {
+            form.setAttribute('data-state', 'error');
             say('Nie udało się wysłać wiadomości. Zadzwoń: ' + form.getAttribute('data-phone') +
               ' albo napisz: ' + form.getAttribute('data-mail') + '.');
           })
           .then(function () { if (btn) btn.disabled = false; });
+      });
+      var again = form.querySelector('[data-form-again]');
+      if (again) again.addEventListener('click', function () {
+        form.removeAttribute('data-state');
+        form.style.minHeight = '';
+        var first = form.querySelector('.field select, .field input, .field textarea');
+        if (first) first.focus();
       });
     });
   }

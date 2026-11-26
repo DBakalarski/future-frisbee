@@ -2,7 +2,7 @@
 
 **Po co:** zgłoszenie z `oferta.html#zapisy` ma dotrzeć do trenera bez otwierania programu pocztowego klienta.
 
-**Cele:** wysyłka w tle do `https://formspree.io/f/mppdbeze` (testowe ID usera - do podmiany na docelowe), komunikat „dotarło” na stronie, temat maila „Zgłoszenie ze strony: <usługa>”, `_replyto` gdy kontakt to e-mail, pułapka na boty `_gotcha`, przy błędzie - telefon i e-mail trenera. Bez JS: zwykły POST (strona podziękowania Formspree). `data-pick` / `?temat=` bez zmian.
+**Cele:** wysyłka w tle do `https://formspree.io/f/xyewoqyk` (produkcyjny; na początku testowy `mppdbeze`), komunikat „dotarło” na stronie, temat maila „Zgłoszenie ze strony: <usługa>”, `_replyto` gdy kontakt to e-mail, pułapka na boty `_gotcha`, przy błędzie - telefon i e-mail trenera. Bez JS: zwykły POST (strona podziękowania Formspree). `data-pick` / `?temat=` bez zmian.
 
 **Poza zakresem:** polityka prywatności, płatny plan, własna strona podziękowania.
 
