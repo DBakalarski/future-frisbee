@@ -1,12 +1,12 @@
 // Generuje statyczne strony z plików *.dc.html.
-// Uruchom: node scripts/build.mjs
+// Uruchom: node scripts/build.mjs  (tworzy też dist/ - gotową paczkę na serwer)
 //
 // Pliki .dc.html to źródło (edytowalne w narzędziu do projektowania, renderowane
 // w przeglądarce przez support.js + React). Pliki .html to wersja do publikacji:
 // czysty HTML/CSS + mały skrypt, bez Reacta. Wspólne styles.css i site.js
 // są wklejane do każdej strony (jedno zapytanie mniej, szybszy pierwszy ekran).
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -215,3 +215,25 @@ ${localJs.map(js => `<script>\n${js.trim()}\n</script>`).join('\n')}
 }
 
 PAGES.forEach(build);
+
+// Paczka do publikacji: dist/ = strony + tylko te zdjęcia i logo, do których się odwołują.
+// Wgraj ZAWARTOŚĆ dist/ do głównego katalogu serwera.
+function pack() {
+  const DIST = join(ROOT, 'dist');
+  rmSync(DIST, { recursive: true, force: true });
+  const files = new Set();
+  for (const { out } of PAGES) {
+    files.add(out);
+    for (const ref of readFileSync(join(ROOT, out), 'utf8').match(/(photos|logo)\/[\w.-]+/g) || []) files.add(ref);
+  }
+  let bytes = 0;
+  for (const f of files) {
+    const from = join(ROOT, f);
+    if (!existsSync(from)) throw new Error(`Brak pliku ${f} (odwołuje się do niego strona)`);
+    mkdirSync(dirname(join(DIST, f)), { recursive: true });
+    copyFileSync(from, join(DIST, f));
+    bytes += readFileSync(from).length;
+  }
+  console.log(`dist/: ${files.size} plików, ${(bytes / 1024 / 1024).toFixed(1)} MB - wgraj zawartość folderu na serwer`);
+}
+pack();
