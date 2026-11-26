@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 
 const code = readFileSync(new URL('../site.js', import.meta.url), 'utf8');
-const ACTION = 'https://formspree.io/f/mppdbeze';
+const ACTION = 'https://formspree.io/f/xyewoqyk';
 
 class FakeFormData {
   constructor(form) { this.m = new Map(Object.entries(form._fields)); }
